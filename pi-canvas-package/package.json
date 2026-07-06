@@ -1,0 +1,27 @@
+{
+  "name": "pi-canvas-plugin",
+  "version": "1.0.0",
+  "description": "Pi package que conecta o Canvas Infinito (Core React) ao Pi Coding Agent via uma ferramenta create_widget e um servidor WebSocket.",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "canvas",
+    "widgets"
+  ],
+  "license": "MIT",
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.12"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  }
+}

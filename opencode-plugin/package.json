@@ -1,0 +1,16 @@
+{
+  "name": "opencode-canvas-plugin",
+  "version": "1.0.0",
+  "description": "Plugin OpenCode que conecta a IA da CLI ao Canvas Infinito (Core React) via WebSocket na porta 8080.",
+  "main": "plugin.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node plugin.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
