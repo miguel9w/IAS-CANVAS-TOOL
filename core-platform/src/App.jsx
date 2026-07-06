@@ -19,6 +19,7 @@ import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { useWebSocket } from './useWebSocket';
 import { appBus } from './eventBus';
 import FloatingWindow from './FloatingWindow';
+import Sidebar from './Sidebar';
 
 const WS_URL = 'ws://localhost:8080';
 
@@ -291,7 +292,8 @@ export default function App() {
     return 'bg-red-500';
   }, [wsStatus]);
 
-  return (
+  return (<>
+      <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} />
     <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
       {/* Grade de fundo — puramente decorativa, reforça a metáfora de canvas técnico */}
       <div
@@ -338,5 +340,5 @@ export default function App() {
         ))}
       </div>
     </div>
-  );
+  </>);
 }

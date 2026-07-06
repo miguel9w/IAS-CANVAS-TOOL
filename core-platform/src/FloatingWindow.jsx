@@ -86,13 +86,34 @@ export default function FloatingWindow({ win, appBus, isActive, onFocus, onClose
           </span>
           <span className="text-xs font-mono text-slate-200 truncate">{win.title}</span>
         </div>
-        <button
-          onClick={() => onClose(win.id)}
-          className="text-slate-500 hover:text-red-400 text-sm leading-none px-1 shrink-0"
-          aria-label="Fechar widget"
-        >
-          ✕
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => {
+              const blob = new Blob([win.source_code], { type: 'text/jsx' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `widget-${win.id}.jsx`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+            className="text-slate-500 hover:text-teal-400 text-sm leading-none px-1 shrink-0"
+            title="Salvar widget"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+              <path d="M17 21v-8H7v8" />
+              <path d="M7 3v5h8" />
+            </svg>
+          </button>
+          <button
+            onClick={() => onClose(win.id)}
+            className="text-slate-500 hover:text-red-400 text-sm leading-none px-1 shrink-0"
+            aria-label="Fechar widget"
+          >
+            ✕
+          </button>
+        </div>
       </div>
 
       {/* Conteúdo dinâmico do widget */}
