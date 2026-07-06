@@ -176,17 +176,6 @@ resolve internamente) — outras bibliotecas não estão disponíveis.
   }
 }
 ```
-
-## O que foi testado de verdade (e o que não)
-
-| Parte | Como testei |
-| --- | --- |
-| `install.sh` | Rodei do zero em ambiente limpo: gerou o esqueleto, `npm install` funcionou, `npm run build` compilou sem erro, e rodei uma segunda vez para confirmar idempotência. |
-| `install.ps1` | Não tenho Windows/PowerShell neste ambiente — revisei manualmente (delimitadores de here-string, ausência de acentos para evitar mojibake no PowerShell 5.1). Se der erro, me manda o log. |
-| `canvas-plugin.js` (OpenCode) | Type-check e execução real via mocks do Bun/SDK — funcionou, mas não testei o carregamento pelo binário `opencode` de verdade. |
-| `pi-canvas-package` (Pi) | Instalei os pacotes reais do npm, rodei `tsc --strict` contra os tipos oficiais (0 erros), e executei via `jiti` (o mesmo loader que o Pi usa) com um servidor WebSocket real e um cliente recebendo o broadcast — mas não testei o binário `pi` de verdade. |
-| `WidgetWrapper.jsx` | Testado com Babel Standalone real cobrindo: JSX puro, `import`/`export` do React, e o bug real de `react/jsx-runtime` que apareceu em produção (ambos corrigidos e testados). |
-
 ## Bugs reais que já apareceram e foram corrigidos (histórico)
 
 Caso você tenha uma cópia antiga destes arquivos, aqui está o que mudou:
