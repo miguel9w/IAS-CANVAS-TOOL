@@ -45,7 +45,7 @@ e uma versão **standalone** legada para testes manuais sem IA nenhuma.
 - **Standalone** é um script Node manual (sem IA real) para testar o Core
   isoladamente via uma CLI que simula respostas de IA.
 
-## Estrutura de pastas (definitiva)
+## Estrutura de pastas
 
 ```
 opencode-canvas/
