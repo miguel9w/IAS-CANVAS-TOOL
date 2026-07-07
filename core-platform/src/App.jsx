@@ -196,6 +196,7 @@ export default function App() {
     return [];
   });
   const [activeId, setActiveId] = useState(null);
+  const [decorationsVisible, setDecorationsVisible] = useState(true);
 
   // Pan (deslocamento) do canvas infinito.
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -373,8 +374,8 @@ export default function App() {
     return 'bg-red-500';
   }, [wsStatus]);
 
-  return (<>
-      <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} />
+    return (<>
+      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} />}
     <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
       {/* Grade de fundo — puramente decorativa, reforça a metáfora de canvas técnico */}
       <div
@@ -387,12 +388,14 @@ export default function App() {
       />
 
       {/* Indicador de status da conexão com o Plugin OpenCode */}
-      <div className="absolute top-3 right-4 z-50 flex items-center gap-2 font-mono text-[11px] text-slate-400 bg-[#121826]/80 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur">
-        <span className={`w-2 h-2 rounded-full ${statusColor}`} />
-        {wsStatus === 'open' && 'plugin conectado · porta 8080'}
-        {wsStatus === 'connecting' && 'conectando ao plugin...'}
-        {wsStatus === 'closed' && 'plugin desconectado · tentando reconectar'}
-      </div>
+      {decorationsVisible && (
+        <div className="absolute top-3 right-4 z-50 flex items-center gap-2 font-mono text-[11px] text-slate-400 bg-[#121826]/80 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur">
+          <span className={`w-2 h-2 rounded-full ${statusColor}`} />
+          {wsStatus === 'open' && 'plugin conectado · porta 8080'}
+          {wsStatus === 'connecting' && 'conectando ao plugin...'}
+          {wsStatus === 'closed' && 'plugin desconectado · tentando reconectar'}
+        </div>
+      )}
 
       {/* Área pannable do canvas infinito */}
       <div className="absolute inset-0" onMouseDown={handleCanvasMouseDown} style={{ transform: `translate(${pan.x}px, ${pan.y}px)` }}>
@@ -401,7 +404,7 @@ export default function App() {
             Nenhum widget ativo. Aguardando comandos do OpenCode...
           </div>
         )}
-        {windows.length > 0 && (
+        {windows.length > 0 && decorationsVisible && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 text-slate-600 text-xs font-mono bg-[#121826]/60 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur pointer-events-none">
             Arraste com o botão do meio para pan · Feche widgets com o ×
           </div>
@@ -413,12 +416,26 @@ export default function App() {
             win={win}
             appBus={appBus}
             isActive={activeId === win.id}
+            decorationsVisible={decorationsVisible}
             onFocus={focusWindow}
             onClose={closeWindow}
             onDrag={dragWindow}
             onResize={resizeWindow}
           />
         ))}
+        <button
+          onClick={() => setDecorationsVisible((v) => !v)}
+          className="fixed bottom-4 left-4 z-50 flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
+          title={decorationsVisible ? 'Ocultar decorações' : 'Mostrar decorações'}
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            {decorationsVisible
+              ? <><path d="M4 20h16" /><path d="M4 4h16" /><path d="M4 8h16" /><path d="M4 12h16" /><path d="M4 16h16" /></>
+              : <><path d="M6 4h12v16H6z" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h8" /></>
+            }
+          </svg>
+          {decorationsVisible ? 'Decorações' : 'Decorações'}
+        </button>
       </div>
     </div>
   </>);
