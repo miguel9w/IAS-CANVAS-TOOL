@@ -150,10 +150,10 @@ function Widget({ appBus }) {
     wrap: { background: '#0B1120', color: '#e2e8f0', fontFamily: 'system-ui,sans-serif', padding: '12px', height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '8px', border: '1px solid rgba(34, 211, 238, 0.15)', boxShadow: '0 0 40px rgba(34, 211, 238, 0.05), inset 0 1px 0 rgba(255,255,255,0.05)' },
     h: { fontSize: '18px', fontWeight: 700, margin: '0 0 8px', color: '#7c83ff' },
     toolbar: { display: 'flex', gap: '4px', marginBottom: '8px', flexWrap: 'wrap', alignItems: 'center' },
-    toolBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }),
+    toolBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: active ? '#0B1120' : '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }),
     colorInp: { width: '26px', height: '26px', border: 'none', borderRadius: '4px', cursor: 'pointer', padding: 0, background: 'transparent' },
     range: { width: '50px', accentColor: '#7c83ff' },
-    actionBtn: { background: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: '#888', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' },
+    actionBtn: { background: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' },
     clearBtn: { background: '#f87171', border: 'none', borderRadius: '4px', color: '#fff', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' },
     canvas: { flex: 1, borderRadius: '6px', overflow: 'hidden', cursor: 'crosshair' },
   };

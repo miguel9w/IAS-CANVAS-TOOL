@@ -78,7 +78,7 @@ function Widget({ appBus }) {
     wrap: { background: '#0B1120', color: '#e2e8f0', fontFamily: 'system-ui,sans-serif', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '8px', border: '1px solid rgba(34, 211, 238, 0.15)', boxShadow: '0 0 40px rgba(34, 211, 238, 0.05), inset 0 1px 0 rgba(255,255,255,0.05)' },
     h: { fontSize: '18px', fontWeight: 700, margin: '0 0 12px', color: '#7c83ff' },
     row: { display: 'flex', gap: '8px', marginBottom: '12px', alignItems: 'center', flexWrap: 'wrap' },
-    label: { fontSize: '12px', color: '#888' },
+    label: { fontSize: '12px', color: '#94a3b8' },
     colorInp: { width: '36px', height: '36px', border: 'none', borderRadius: '6px', cursor: 'pointer', padding: 0, background: 'transparent' },
     select: { background: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '6px', color: '#e2e8f0', padding: '6px 10px', fontSize: '12px', cursor: 'pointer', outline: 'none' },
     palette: { flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', justifyContent: 'center' },
@@ -87,7 +87,7 @@ function Widget({ appBus }) {
     hexLabel: { fontSize: '11px', fontFamily: 'monospace', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px', color: '#fff' },
     lockBtn: (locked) => ({ position: 'absolute', top: '4px', right: '4px', background: 'rgba(0,0,0,0.3)', border: 'none', borderRadius: '3px', color: locked ? '#fbbf24' : 'rgba(255,255,255,0.5)', fontSize: '10px', cursor: 'pointer', padding: '2px 4px' }),
     modeRow: { display: 'flex', gap: '4px', flexWrap: 'wrap' },
-    modeBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: '#94a3b8', padding: '4px 10px', fontSize: '11px', cursor: 'pointer' }),
+    modeBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: active ? '#0B1120' : '#94a3b8', padding: '4px 10px', fontSize: '11px', cursor: 'pointer' }),
   };
 
   return (
@@ -115,7 +115,7 @@ function Widget({ appBus }) {
             </div>
           ))}
         </div>
-        <div style={{textAlign:'center',fontSize:'11px',color:'#555',marginTop:'8px'}}>Click a swatch to copy hex</div>
+        <div style={{textAlign:'center',fontSize:'11px',color:'#94a3b8',marginTop:'8px'}}>Click a swatch to copy hex</div>
       </div>
     </div>
   );

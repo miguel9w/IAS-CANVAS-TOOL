@@ -99,7 +99,7 @@ function Widget({ appBus }) {
     toolbar: { display: 'flex', gap: '6px', marginBottom: '8px', flexWrap: 'wrap', alignItems: 'center' },
     label: { fontSize: '11px', color: '#888' },
     select: { background: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: '#e2e8f0', padding: '4px 8px', fontSize: '11px', cursor: 'pointer', outline: 'none' },
-    toggleBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }),
+    toggleBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: active ? '#0B1120' : '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }),
     clearBtn: { background: '#f87171', border: 'none', borderRadius: '4px', color: '#fff', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' },
     canvas: { flex: 1, borderRadius: '6px', overflow: 'hidden', cursor: 'none' },
   };

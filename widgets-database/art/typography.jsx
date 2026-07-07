@@ -37,8 +37,8 @@ function Widget({ appBus }) {
     select: { background: '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: '#e2e8f0', padding: '4px 8px', fontSize: '11px', cursor: 'pointer', outline: 'none', flex: '1', minWidth: '80px' },
     range: { width: '60px', accentColor: '#7c83ff' },
     colorInp: { width: '28px', height: '28px', border: 'none', borderRadius: '4px', cursor: 'pointer', padding: 0, background: 'transparent' },
-    toggleBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }),
-    alignBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: '#94a3b8', padding: '3px 6px', fontSize: '11px', cursor: 'pointer', minWidth: '26px' }),
+    toggleBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid ' + (active ? '#7c83ff' : 'rgba(148, 163, 184, 0.08)'), borderRadius: '4px', color: active ? '#0B1120' : '#94a3b8', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }),
+    alignBtn: (active) => ({ background: active ? '#7c83ff' : '#0f172a', border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: active ? '#0B1120' : '#94a3b8', padding: '3px 6px', fontSize: '11px', cursor: 'pointer', minWidth: '26px' }),
     preview: {
       flex: 1,
       background: bgColor,
