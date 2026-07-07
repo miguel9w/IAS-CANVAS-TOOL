@@ -68,7 +68,7 @@ function Widget({ appBus }) {
               style={{
                 padding: '4px 12px', background: period === p ? '#22d3ee' : 'transparent',
                 border: '1px solid ' + (period === p ? '#4a9eff' : 'rgba(148, 163, 184, 0.08)'),
-                borderRadius: '4px', color: period === p ? '#4a9eff' : '#888',
+                borderRadius: '4px', color: period === p ? '#0B1120' : '#94a3b8',
                 fontSize: '11px', cursor: 'pointer'
               }}>
               {p}

@@ -124,7 +124,7 @@ function Widget({ appBus }) {
         <div style={{display:'flex',gap:'4px'}}>
           {Object.entries(constellations).map(([k,v])=>
             <button key={k} onClick={()=>setConstellation(k)}
-              style={{background:constellation===k?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:'#e2e8f0',padding:'3px 10px',borderRadius:'4px',cursor:'pointer',fontSize:'11px'}}>
+              style={{background:constellation===k?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:constellation===k?'#0B1120':'#e2e8f0',padding:'3px 10px',borderRadius:'4px',cursor:'pointer',fontSize:'11px'}}>
               {v.name}
             </button>
           )}

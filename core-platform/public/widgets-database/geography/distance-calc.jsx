@@ -65,9 +65,9 @@ function Widget({ appBus }) {
 
       <div style={{display:'flex',gap:'8px',marginBottom:'12px'}}>
         <button onClick={()=>setUnit('km')}
-          style={{flex:1,padding:'6px',background:unit==='km'?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:'#e2e8f0',borderRadius:'4px',cursor:'pointer',fontSize:'11px',fontWeight:unit==='km'?'bold':'normal'}}>km</button>
+          style={{flex:1,padding:'6px',background:unit==='km'?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:unit==='km'?'#0B1120':'#e2e8f0',borderRadius:'4px',cursor:'pointer',fontSize:'11px',fontWeight:unit==='km'?'bold':'normal'}}>km</button>
         <button onClick={()=>setUnit('mi')}
-          style={{flex:1,padding:'6px',background:unit==='mi'?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:'#e2e8f0',borderRadius:'4px',cursor:'pointer',fontSize:'11px',fontWeight:unit==='mi'?'bold':'normal'}}>miles</button>
+          style={{flex:1,padding:'6px',background:unit==='mi'?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:unit==='mi'?'#0B1120':'#e2e8f0',borderRadius:'4px',cursor:'pointer',fontSize:'11px',fontWeight:unit==='mi'?'bold':'normal'}}>miles</button>
       </div>
 
       <div style={{fontSize:'10px',color:'#94a3b8',padding:'8px',background:'#0f172a',borderRadius:'6px',lineHeight:1.5}}>

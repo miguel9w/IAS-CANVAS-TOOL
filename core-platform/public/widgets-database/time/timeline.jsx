@@ -131,7 +131,7 @@ function Widget({ appBus }) {
           <button onClick={addEvent}
             style={{
               padding: '6px 12px', background: '#22d3ee', border: 'none',
-              borderRadius: '6px', color: '#4a9eff', cursor: 'pointer', fontSize: '12px'
+              borderRadius: '6px', color: '#0B1120', cursor: 'pointer', fontSize: '12px'
             }}>
             Add
           </button>

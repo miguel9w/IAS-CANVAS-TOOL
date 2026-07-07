@@ -72,7 +72,7 @@ function Widget({ appBus }) {
         fontSize: '11px', color: '#94a3b8', padding: '3px 10px',
         background: phase === 'work' ? '#22d3ee' : '#1a3a1a',
         borderRadius: '12px', fontWeight: 600,
-        color: phase === 'work' ? '#4a9eff' : '#34d399'
+        color: phase === 'work' ? '#0B1120' : '#34d399'
       }}>
         {phase === 'work' ? 'FOCUS' : 'BREAK'}
       </div>
@@ -95,7 +95,7 @@ function Widget({ appBus }) {
           style={{
             padding: '8px 24px', background: running ? '#22d3ee' : '#34d399',
             border: 'none', borderRadius: '8px',
-            color: running ? '#4a9eff' : '#0B1120',
+            color: running ? '#0B1120' : '#0B1120',
             fontWeight: 600, cursor: 'pointer', fontSize: '14px'
           }}>
           {running ? 'Pause' : 'Start'}

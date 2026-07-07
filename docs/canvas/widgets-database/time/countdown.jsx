@@ -90,7 +90,7 @@ function Widget({ appBus }) {
               style={{
                 padding: '5px 12px', background: label === p.lb ? '#22d3ee' : '#0f172a',
                 border: '1px solid ' + (label === p.lb ? '#4a9eff' : 'rgba(148, 163, 184, 0.08)'),
-                borderRadius: '6px', color: label === p.lb ? '#4a9eff' : '#94a3b8',
+                borderRadius: '6px', color: label === p.lb ? '#0B1120' : '#94a3b8',
                 cursor: 'pointer', fontSize: '12px'
               }}>
               {p.l}

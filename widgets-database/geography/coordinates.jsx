@@ -92,7 +92,7 @@ function Widget({ appBus }) {
       <div style={{display:'flex',gap:'6px',marginBottom:'12px'}}>
         {['dd','dms','utm'].map(m=>
           <button key={m} onClick={()=>setMode(m)}
-            style={{flex:1,padding:'4px',background:mode===m?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:'#e2e8f0',borderRadius:'4px',cursor:'pointer',fontSize:'11px',fontWeight:mode===m?'bold':'normal'}}>
+            style={{flex:1,padding:'4px',background:mode===m?'#22d3ee':'#1e293b',border:'1px solid rgba(148, 163, 184, 0.08)',color:mode===m?'#0B1120':'#e2e8f0',borderRadius:'4px',cursor:'pointer',fontSize:'11px',fontWeight:mode===m?'bold':'normal'}}>
             {m==='dd'?'Decimal':m==='dms'?'DMS':'UTM'}
           </button>
         )}

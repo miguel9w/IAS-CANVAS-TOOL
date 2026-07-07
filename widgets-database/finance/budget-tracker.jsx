@@ -56,15 +56,15 @@ function Widget({ appBus }) {
         background: '#0f172a', borderRadius: '8px', padding: '12px'
       }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '11px', color: '#888' }}>Income</div>
+          <div style={{ fontSize: '11px', color: '#94a3b8' }}>Income</div>
           <div style={{ fontSize: '16px', fontWeight: 700, color: '#34d399' }}>+${totalIncome.toFixed(0)}</div>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '11px', color: '#888' }}>Expenses</div>
+          <div style={{ fontSize: '11px', color: '#94a3b8' }}>Expenses</div>
           <div style={{ fontSize: '16px', fontWeight: 700, color: '#ef4444' }}>-${totalExpenses.toFixed(0)}</div>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '11px', color: '#888' }}>Remaining</div>
+          <div style={{ fontSize: '11px', color: '#94a3b8' }}>Remaining</div>
           <div style={{ fontSize: '16px', fontWeight: 700, color: remaining >= 0 ? '#4a9eff' : '#ef4444' }}>
             ${remaining.toFixed(0)}
           </div>
@@ -108,7 +108,7 @@ function Widget({ appBus }) {
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minHeight: 0, overflow: 'auto' }}>
-        <div style={{ fontSize: '12px', color: '#888' }}>Expense Breakdown</div>
+        <div style={{ fontSize: '12px', color: '#94a3b8' }}>Expense Breakdown</div>
         {catEntries.map(function(cat) {
           var pct = (cat[1] / catMax) * 100;
           return (
@@ -159,7 +159,7 @@ function Widget({ appBus }) {
           <button onClick={addEntry}
             style={{
               padding: '6px 12px', background: '#22d3ee', border: 'none',
-              borderRadius: '6px', color: '#4a9eff', cursor: 'pointer', fontSize: '12px'
+              borderRadius: '6px', color: '#0B1120', cursor: 'pointer', fontSize: '12px'
             }}>
             Add
           </button>
@@ -174,7 +174,7 @@ function Widget({ appBus }) {
               background: '#0f172a', borderRadius: '4px', fontSize: '11px'
             }}>
               <span style={{ flex: 1, color: '#e2e8f0' }}>{e.desc}</span>
-              <span style={{ color: '#888', width: '60px' }}>{e.cat}</span>
+              <span style={{ color: '#94a3b8', width: '60px' }}>{e.cat}</span>
               <span style={{ color: e.type === 'income' ? '#34d399' : '#ef4444', fontWeight: 600, width: '60px', textAlign: 'right' }}>
                 {e.type === 'income' ? '+' : '-'}${e.amount.toFixed(0)}
               </span>

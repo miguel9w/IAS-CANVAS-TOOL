@@ -42,7 +42,7 @@ function Widget({ appBus }) {
               style={{
                 flex: 1, padding: '6px 12px', background: mode === m ? '#22d3ee' : '#0f172a',
                 border: '1px solid ' + (mode === m ? '#4a9eff' : 'rgba(148, 163, 184, 0.08)'),
-                borderRadius: '6px', color: mode === m ? '#4a9eff' : '#94a3b8',
+                borderRadius: '6px', color: mode === m ? '#0B1120' : '#94a3b8',
                 cursor: 'pointer', fontSize: '12px', textTransform: 'capitalize'
               }}>
               {m === 'duration' ? 'Duration' : 'Add Days'}

@@ -40,7 +40,7 @@ function Widget({ appBus }) {
         Currency Converter
       </h2>
       <div>
-        <label style={{ fontSize: '12px', color: '#888' }}>
+        <label style={{ fontSize: '12px', color: '#94a3b8' }}>
           Amount
           <input type="number" value={amount}
             onChange={function(e) { setAmount(Math.max(0, Number(e.target.value))); }}
@@ -53,7 +53,7 @@ function Widget({ appBus }) {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={{ flex: 1 }}>
-          <label style={{ fontSize: '12px', color: '#888' }}>From</label>
+          <label style={{ fontSize: '12px', color: '#94a3b8' }}>From</label>
           <select value={from}
             onChange={function(e) { setFrom(e.target.value); }}
             style={{
@@ -67,13 +67,13 @@ function Widget({ appBus }) {
         <button onClick={flip}
           style={{
             marginTop: '16px', padding: '8px 10px', background: '#22d3ee',
-            border: 'none', borderRadius: '6px', color: '#4a9eff', cursor: 'pointer',
+            border: 'none', borderRadius: '6px', color: '#0B1120', cursor: 'pointer',
             fontSize: '16px', lineHeight: 1
           }}>
           ⇄
         </button>
         <div style={{ flex: 1 }}>
-          <label style={{ fontSize: '12px', color: '#888' }}>To</label>
+          <label style={{ fontSize: '12px', color: '#94a3b8' }}>To</label>
           <select value={to}
             onChange={function(e) { setTo(e.target.value); }}
             style={{
@@ -88,18 +88,18 @@ function Widget({ appBus }) {
       <div style={{
         background: '#0f172a', borderRadius: '8px', padding: '16px', textAlign: 'center'
       }}>
-        <div style={{ fontSize: '12px', color: '#888' }}>
+        <div style={{ fontSize: '12px', color: '#94a3b8' }}>
           {amount} {from} =
         </div>
         <div style={{ fontSize: '24px', fontWeight: 700, color: '#34d399' }}>
           {result.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})} {to}
         </div>
-        <div style={{ fontSize: '11px', color: '#666', marginTop: '4px' }}>
+        <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
           1 {from} = {convert(1, from, to).toFixed(4)} {to}
         </div>
       </div>
       <div>
-        <div style={{ fontSize: '12px', color: '#888', marginBottom: '6px' }}>Quick Pairs</div>
+        <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '6px' }}>Quick Pairs</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
           {popularPairs.map(function(pair) {
             var [pf, pt] = pair;
@@ -109,7 +109,7 @@ function Widget({ appBus }) {
                 onClick={function() { setFrom(pf); setTo(pt); setAmount(100); }}
                 style={{
                   padding: '4px 8px', background: from === pf && to === pt ? '#22d3ee' : '#0f172a',
-                  border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: '#aaa',
+                  border: '1px solid rgba(148, 163, 184, 0.08)', borderRadius: '4px', color: from === pf && to === pt ? '#0B1120' : '#94a3b8',
                   fontSize: '11px', cursor: 'pointer'
                 }}>
                 {pf}/{pt}: {v.toFixed(2)}
