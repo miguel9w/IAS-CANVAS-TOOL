@@ -1535,19 +1535,93 @@
         "thermometer"
       ]
     },
-    {
-      "id": "weather/wind-compass",
-      "title": "Wind Compass",
-      "category": "weather",
-      "category_label": "Weather",
-      "description": "Ferramentas clim\u00e1ticas",
-      "file": "weather/wind-compass.jsx",
-      "size_bytes": 4127,
-      "tags": [
-        "weather",
-        "wind-compass"
-      ]
-    }
-  ],
-  "total": 118
+        {
+            "id": "weather/wind-compass",
+            "title": "Wind Compass",
+            "category": "weather",
+            "category_label": "Weather",
+            "description": "Ferramentas clim\u00e1ticas",
+            "file": "weather/wind-compass.jsx",
+            "size_bytes": 4127,
+            "tags": [
+                "weather",
+                "wind-compass"
+            ]
+        },
+        {
+            "id": "data-viz/csv-tabela",
+            "title": "CSV Tabela",
+            "category": "data-viz",
+            "category_label": "Data Viz",
+            "description": "Parsing de CSV com emiss\u00e3o appBus para widgets filhos",
+            "file": "data-viz/csv-tabela.jsx",
+            "size_bytes": 3233,
+            "tags": [
+                "data-viz",
+                "csv",
+                "tabela"
+            ]
+        },
+        {
+            "id": "data-viz/csv-barras",
+            "title": "CSV Barras",
+            "category": "data-viz",
+            "category_label": "Data Viz",
+            "description": "Gr\u00e1fico de barras a partir de dados CSV via appBus",
+            "file": "data-viz/csv-barras.jsx",
+            "size_bytes": 3978,
+            "tags": [
+                "data-viz",
+                "csv",
+                "barras",
+                "chart"
+            ]
+        },
+        {
+            "id": "data-viz/csv-linha",
+            "title": "CSV Linha",
+            "category": "data-viz",
+            "category_label": "Data Viz",
+            "description": "Gr\u00e1fico de linhas m\u00faltiplas a partir de dados CSV via appBus",
+            "file": "data-viz/csv-linha.jsx",
+            "size_bytes": 5491,
+            "tags": [
+                "data-viz",
+                "csv",
+                "linha",
+                "chart"
+            ]
+        },
+        {
+            "id": "data-viz/csv-pizza",
+            "title": "CSV Pizza",
+            "category": "data-viz",
+            "category_label": "Data Viz",
+            "description": "Gr\u00e1fico de pizza a partir de dados CSV via appBus",
+            "file": "data-viz/csv-pizza.jsx",
+            "size_bytes": 4133,
+            "tags": [
+                "data-viz",
+                "csv",
+                "pizza",
+                "chart"
+            ]
+        },
+        {
+            "id": "physics/interferencia-ondas",
+            "title": "Interfer\u00eancia de Ondas",
+            "category": "physics",
+            "category_label": "Physics",
+            "description": "Simula\u00e7\u00e3o interativa de interfer\u00eancia de ondas senoidais",
+            "file": "physics/interferencia-ondas.jsx",
+            "size_bytes": 5966,
+            "tags": [
+                "physics",
+                "interferencia",
+                "ondas",
+                "wave"
+            ]
+        }
+    ],
+    "total": 124
 }
