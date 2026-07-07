@@ -61,9 +61,21 @@ function ensureServer() {
       close(ws) {
         ws.unsubscribe(TOPIC);
       },
-      message() {
-        // O Core (front-end) não precisa enviar nada de volta por enquanto.
-        // Espaço reservado para futuras mensagens Core -> Plugin.
+      message(ws, raw) {
+        try {
+          const msg = JSON.parse(raw);
+          if (msg.action === 'WIDGET_EVENT') {
+            const { payload } = msg;
+            const waiter = replyWaiters.get(payload?.widget_id);
+            if (waiter) {
+              clearTimeout(waiter.timer);
+              replyWaiters.delete(payload.widget_id);
+              waiter.resolve(payload);
+            }
+          }
+        } catch (err) {
+          console.error('[canvas-plugin] Erro ao processar mensagem do canvas:', err);
+        }
       },
     },
   });
@@ -80,6 +92,30 @@ function ensureServer() {
  */
 function broadcast(server, message) {
   server.publish(TOPIC, JSON.stringify(message));
+}
+
+/** Mapa de promessas: widget_id → { resolve, reject, timer } */
+const replyWaiters = new Map();
+
+/**
+ * Cria uma promessa que resolve quando chegar WIDGET_EVENT
+ * para o widget_id informado, ou rejeita no timeout.
+ * @param {string} widgetId
+ * @param {number} timeoutMs
+ * @returns {Promise<object>}
+ */
+function waitForReply(widgetId, timeoutMs) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      replyWaiters.delete(widgetId);
+      reject(
+        new Error(
+          `Timeout: widget "${widgetId}" não respondeu em ${timeoutMs}ms`
+        )
+      );
+    }, timeoutMs);
+    replyWaiters.set(widgetId, { resolve, reject, timer });
+  });
 }
 
 /** @type {import('@opencode-ai/plugin').Plugin} */
@@ -106,37 +142,80 @@ export const CanvasPlugin = async ({ client }) => {
         args: {
           widget_id: tool.schema
             .string()
-            .describe('Identificador único do widget, ex: "contador-1"'),
+            .describe('Identificador único do widget'),
           title: tool.schema.string().describe('Título exibido na barra da janela'),
           width: tool.schema.number().describe('Largura da janela em pixels'),
           height: tool.schema.number().describe('Altura da janela em pixels'),
-          source_code: tool.schema
-            .string()
+          source_code: tool.schema.string().describe('Código JSX do componente'),
+          expect_response: tool.schema
+            .boolean()
+            .optional()
             .describe(
-              'Código JSX do componente. Deve declarar: function Widget({ appBus }) { ... }'
+              'Se true, o tool call aguarda uma resposta do widget antes de resolver'
+            ),
+          reply_timeout: tool.schema
+            .number()
+            .optional()
+            .describe(
+              'Timeout em ms para aguardar resposta (padrão: 30000)'
             ),
         },
         async execute(args) {
           if (!server) {
             return (
               'Erro: o servidor WebSocket do Canvas não está disponível ' +
-              '(a porta 8080 pode já estar em uso). Verifique os logs do OpenCode.'
+              '(a porta 8080 pode já estar em uso).'
             );
           }
 
-          broadcast(server, { action: 'CREATE_WIDGET', payload: args });
+          const { expect_response, reply_timeout, ...widgetArgs } = args;
 
-          // Log estruturado — aparece nos logs do OpenCode Desktop/CLI.
+          broadcast(server, { action: 'CREATE_WIDGET', payload: widgetArgs });
+
           await client.app.log({
             body: {
               service: 'canvas-plugin',
               level: 'info',
-              message: `Widget "${args.title}" enviado ao Canvas`,
-              extra: { widget_id: args.widget_id },
+              message: `Widget "${widgetArgs.title}" enviado ao Canvas`,
+              extra: { widget_id: widgetArgs.widget_id, expect_response: !!expect_response },
             },
           });
 
-          return `Widget "${args.title}" criado e enviado ao Canvas com sucesso.`;
+          if (!expect_response) {
+            return `Widget "${widgetArgs.title}" criado e enviado ao Canvas com sucesso.`;
+          }
+
+          // Aguarda resposta do canvas
+          try {
+            const reply = await waitForReply(
+              widgetArgs.widget_id,
+              reply_timeout ?? 30000
+            );
+            return `Widget "${widgetArgs.title}" respondeu: ${JSON.stringify(reply.data ?? reply)}`;
+          } catch (err) {
+            return `Widget "${widgetArgs.title}" não respondeu a tempo: ${err.message}`;
+          }
+        },
+      }),
+      canvas_list_widgets: tool({
+        description:
+          'Lista todos os widgets abertos no Canvas Infinito, com título, ' +
+          'tamanho e posição de cada um.',
+        args: {},
+        async execute() {
+          if (!server) return 'Servidor do Canvas indisponível.';
+
+          // Envia pedido e aguarda resposta
+          broadcast(server, { action: 'LIST_WIDGETS', payload: {} });
+
+          try {
+            const reply = await waitForReply('__system__', 5000);
+            const widgets = reply.data ?? [];
+            return `Widgets no canvas (${widgets.length}):\n` +
+              widgets.map((w) => `  - ${w.title} (${w.id})`).join('\n');
+          } catch {
+            return 'Não foi possível obter a lista de widgets (timeout).';
+          }
         },
       }),
     },
