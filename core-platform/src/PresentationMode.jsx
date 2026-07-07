@@ -39,8 +39,8 @@ export default function PresentationMode({ windows, appBus, onExit, startIndex }
   };
 
   return React.createElement('div', { style: { position: 'fixed', inset: 0, zIndex: 9998, background: '#0B1120', display: 'flex', flexDirection: 'column' } },
-    React.createElement('div', { style: { flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 20 } },
-      React.createElement('div', { style: { width: '90%', height: '90%', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(148,163,184,0.08)', boxShadow: '0 0 60px rgba(0,0,0,0.5)' } },
+    React.createElement('div', { style: { flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 8 } },
+      React.createElement('div', { style: { width: '96%', height: '94%', borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(148,163,184,0.08)', boxShadow: '0 0 40px rgba(0,0,0,0.4)' } },
         React.createElement(WidgetWrapper, { sourceCode: win.source_code, appBus: appBus, windowId: win.id })
       )
     ),
