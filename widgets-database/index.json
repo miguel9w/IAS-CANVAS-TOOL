@@ -1,0 +1,1540 @@
+{
+  "version": 1,
+  "widgets": [
+    {
+      "id": "ai-ml/decision-tree",
+      "title": "Decision Tree",
+      "category": "ai-ml",
+      "category_label": "Ai Ml",
+      "description": "Demonstra\u00e7\u00f5es de IA e Machine Learning",
+      "file": "ai-ml/decision-tree.jsx",
+      "size_bytes": 10457,
+      "tags": [
+        "ai-ml",
+        "decision-tree"
+      ]
+    },
+    {
+      "id": "ai-ml/gradient-descent",
+      "title": "Gradient Descent",
+      "category": "ai-ml",
+      "category_label": "Ai Ml",
+      "description": "Demonstra\u00e7\u00f5es de IA e Machine Learning",
+      "file": "ai-ml/gradient-descent.jsx",
+      "size_bytes": 10218,
+      "tags": [
+        "ai-ml",
+        "gradient-descent"
+      ]
+    },
+    {
+      "id": "ai-ml/k-means",
+      "title": "K Means",
+      "category": "ai-ml",
+      "category_label": "Ai Ml",
+      "description": "Demonstra\u00e7\u00f5es de IA e Machine Learning",
+      "file": "ai-ml/k-means.jsx",
+      "size_bytes": 9745,
+      "tags": [
+        "ai-ml",
+        "k-means"
+      ]
+    },
+    {
+      "id": "ai-ml/neural-network",
+      "title": "Neural Network",
+      "category": "ai-ml",
+      "category_label": "Ai Ml",
+      "description": "Demonstra\u00e7\u00f5es de IA e Machine Learning",
+      "file": "ai-ml/neural-network.jsx",
+      "size_bytes": 9522,
+      "tags": [
+        "ai-ml",
+        "neural-network"
+      ]
+    },
+    {
+      "id": "ai-ml/perceptron",
+      "title": "Perceptron",
+      "category": "ai-ml",
+      "category_label": "Ai Ml",
+      "description": "Demonstra\u00e7\u00f5es de IA e Machine Learning",
+      "file": "ai-ml/perceptron.jsx",
+      "size_bytes": 9546,
+      "tags": [
+        "ai-ml",
+        "perceptron"
+      ]
+    },
+    {
+      "id": "ai-ml/xor-demo",
+      "title": "Xor Demo",
+      "category": "ai-ml",
+      "category_label": "Ai Ml",
+      "description": "Demonstra\u00e7\u00f5es de IA e Machine Learning",
+      "file": "ai-ml/xor-demo.jsx",
+      "size_bytes": 11175,
+      "tags": [
+        "ai-ml",
+        "xor-demo"
+      ]
+    },
+    {
+      "id": "art/color-palette",
+      "title": "Color Palette",
+      "category": "art",
+      "category_label": "Art",
+      "description": "Ferramentas criativas e de desenho",
+      "file": "art/color-palette.jsx",
+      "size_bytes": 5710,
+      "tags": [
+        "art",
+        "color-palette"
+      ]
+    },
+    {
+      "id": "art/kaleidoscope",
+      "title": "Kaleidoscope",
+      "category": "art",
+      "category_label": "Art",
+      "description": "Ferramentas criativas e de desenho",
+      "file": "art/kaleidoscope.jsx",
+      "size_bytes": 4864,
+      "tags": [
+        "art",
+        "kaleidoscope"
+      ]
+    },
+    {
+      "id": "art/mandala",
+      "title": "Mandala",
+      "category": "art",
+      "category_label": "Art",
+      "description": "Ferramentas criativas e de desenho",
+      "file": "art/mandala.jsx",
+      "size_bytes": 4805,
+      "tags": [
+        "art",
+        "mandala"
+      ]
+    },
+    {
+      "id": "art/pixel-art",
+      "title": "Pixel Art",
+      "category": "art",
+      "category_label": "Art",
+      "description": "Ferramentas criativas e de desenho",
+      "file": "art/pixel-art.jsx",
+      "size_bytes": 5968,
+      "tags": [
+        "art",
+        "pixel-art"
+      ]
+    },
+    {
+      "id": "art/sketch-pad",
+      "title": "Sketch Pad",
+      "category": "art",
+      "category_label": "Art",
+      "description": "Ferramentas criativas e de desenho",
+      "file": "art/sketch-pad.jsx",
+      "size_bytes": 7246,
+      "tags": [
+        "art",
+        "sketch-pad"
+      ]
+    },
+    {
+      "id": "art/typography",
+      "title": "Typography",
+      "category": "art",
+      "category_label": "Art",
+      "description": "Ferramentas criativas e de desenho",
+      "file": "art/typography.jsx",
+      "size_bytes": 6345,
+      "tags": [
+        "art",
+        "typography"
+      ]
+    },
+    {
+      "id": "audio/drum-machine",
+      "title": "Drum Machine",
+      "category": "audio",
+      "category_label": "Audio",
+      "description": "Ferramentas de \u00e1udio e m\u00fasica",
+      "file": "audio/drum-machine.jsx",
+      "size_bytes": 6887,
+      "tags": [
+        "audio",
+        "drum-machine"
+      ]
+    },
+    {
+      "id": "audio/spectrum-analyzer",
+      "title": "Spectrum Analyzer",
+      "category": "audio",
+      "category_label": "Audio",
+      "description": "Ferramentas de \u00e1udio e m\u00fasica",
+      "file": "audio/spectrum-analyzer.jsx",
+      "size_bytes": 4829,
+      "tags": [
+        "audio",
+        "spectrum-analyzer"
+      ]
+    },
+    {
+      "id": "audio/step-sequencer",
+      "title": "Step Sequencer",
+      "category": "audio",
+      "category_label": "Audio",
+      "description": "Ferramentas de \u00e1udio e m\u00fasica",
+      "file": "audio/step-sequencer.jsx",
+      "size_bytes": 5499,
+      "tags": [
+        "audio",
+        "step-sequencer"
+      ]
+    },
+    {
+      "id": "audio/theremin",
+      "title": "Theremin",
+      "category": "audio",
+      "category_label": "Audio",
+      "description": "Ferramentas de \u00e1udio e m\u00fasica",
+      "file": "audio/theremin.jsx",
+      "size_bytes": 4348,
+      "tags": [
+        "audio",
+        "theremin"
+      ]
+    },
+    {
+      "id": "audio/tone-generator",
+      "title": "Tone Generator",
+      "category": "audio",
+      "category_label": "Audio",
+      "description": "Ferramentas de \u00e1udio e m\u00fasica",
+      "file": "audio/tone-generator.jsx",
+      "size_bytes": 4141,
+      "tags": [
+        "audio",
+        "tone-generator"
+      ]
+    },
+    {
+      "id": "audio/waveform-viz",
+      "title": "Waveform Viz",
+      "category": "audio",
+      "category_label": "Audio",
+      "description": "Ferramentas de \u00e1udio e m\u00fasica",
+      "file": "audio/waveform-viz.jsx",
+      "size_bytes": 3547,
+      "tags": [
+        "audio",
+        "waveform-viz"
+      ]
+    },
+    {
+      "id": "data-viz/bar-chart",
+      "title": "Bar Chart",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/bar-chart.jsx",
+      "size_bytes": 7289,
+      "tags": [
+        "data-viz",
+        "bar-chart"
+      ]
+    },
+    {
+      "id": "data-viz/csv-table",
+      "title": "Csv Table",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/csv-table.jsx",
+      "size_bytes": 6862,
+      "tags": [
+        "data-viz",
+        "csv-table"
+      ]
+    },
+    {
+      "id": "data-viz/heatmap",
+      "title": "Heatmap",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/heatmap.jsx",
+      "size_bytes": 11060,
+      "tags": [
+        "data-viz",
+        "heatmap"
+      ]
+    },
+    {
+      "id": "data-viz/line-chart",
+      "title": "Line Chart",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/line-chart.jsx",
+      "size_bytes": 8275,
+      "tags": [
+        "data-viz",
+        "line-chart"
+      ]
+    },
+    {
+      "id": "data-viz/pie-chart",
+      "title": "Pie Chart",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/pie-chart.jsx",
+      "size_bytes": 7197,
+      "tags": [
+        "data-viz",
+        "pie-chart"
+      ]
+    },
+    {
+      "id": "data-viz/radar-chart",
+      "title": "Radar Chart",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/radar-chart.jsx",
+      "size_bytes": 8755,
+      "tags": [
+        "data-viz",
+        "radar-chart"
+      ]
+    },
+    {
+      "id": "data-viz/scatter-plot",
+      "title": "Scatter Plot",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/scatter-plot.jsx",
+      "size_bytes": 9172,
+      "tags": [
+        "data-viz",
+        "scatter-plot"
+      ]
+    },
+    {
+      "id": "data-viz/treemap",
+      "title": "Treemap",
+      "category": "data-viz",
+      "category_label": "Data Viz",
+      "description": "Visualiza\u00e7\u00e3o de dados e gr\u00e1ficos",
+      "file": "data-viz/treemap.jsx",
+      "size_bytes": 8029,
+      "tags": [
+        "data-viz",
+        "treemap"
+      ]
+    },
+    {
+      "id": "education/flashcards",
+      "title": "Flashcards",
+      "category": "education",
+      "category_label": "Education",
+      "description": "Ferramentas educacionais",
+      "file": "education/flashcards.jsx",
+      "size_bytes": 3977,
+      "tags": [
+        "education",
+        "flashcards"
+      ]
+    },
+    {
+      "id": "education/multiplication",
+      "title": "Multiplication",
+      "category": "education",
+      "category_label": "Education",
+      "description": "Ferramentas educacionais",
+      "file": "education/multiplication.jsx",
+      "size_bytes": 6898,
+      "tags": [
+        "education",
+        "multiplication"
+      ]
+    },
+    {
+      "id": "education/quiz",
+      "title": "Quiz",
+      "category": "education",
+      "category_label": "Education",
+      "description": "Ferramentas educacionais",
+      "file": "education/quiz.jsx",
+      "size_bytes": 4771,
+      "tags": [
+        "education",
+        "quiz"
+      ]
+    },
+    {
+      "id": "education/typing-tutor",
+      "title": "Typing Tutor",
+      "category": "education",
+      "category_label": "Education",
+      "description": "Ferramentas educacionais",
+      "file": "education/typing-tutor.jsx",
+      "size_bytes": 7046,
+      "tags": [
+        "education",
+        "typing-tutor"
+      ]
+    },
+    {
+      "id": "finance/budget-tracker",
+      "title": "Budget Tracker",
+      "category": "finance",
+      "category_label": "Finance",
+      "description": "Ferramentas financeiras",
+      "file": "finance/budget-tracker.jsx",
+      "size_bytes": 9302,
+      "tags": [
+        "finance",
+        "budget-tracker"
+      ]
+    },
+    {
+      "id": "finance/compound-interest",
+      "title": "Compound Interest",
+      "category": "finance",
+      "category_label": "Finance",
+      "description": "Ferramentas financeiras",
+      "file": "finance/compound-interest.jsx",
+      "size_bytes": 6015,
+      "tags": [
+        "finance",
+        "compound-interest"
+      ]
+    },
+    {
+      "id": "finance/crypto-ticker",
+      "title": "Crypto Ticker",
+      "category": "finance",
+      "category_label": "Finance",
+      "description": "Ferramentas financeiras",
+      "file": "finance/crypto-ticker.jsx",
+      "size_bytes": 3835,
+      "tags": [
+        "finance",
+        "crypto-ticker"
+      ]
+    },
+    {
+      "id": "finance/currency-converter",
+      "title": "Currency Converter",
+      "category": "finance",
+      "category_label": "Finance",
+      "description": "Ferramentas financeiras",
+      "file": "finance/currency-converter.jsx",
+      "size_bytes": 4973,
+      "tags": [
+        "finance",
+        "currency-converter"
+      ]
+    },
+    {
+      "id": "finance/loan-simulator",
+      "title": "Loan Simulator",
+      "category": "finance",
+      "category_label": "Finance",
+      "description": "Ferramentas financeiras",
+      "file": "finance/loan-simulator.jsx",
+      "size_bytes": 5843,
+      "tags": [
+        "finance",
+        "loan-simulator"
+      ]
+    },
+    {
+      "id": "finance/stock-chart",
+      "title": "Stock Chart",
+      "category": "finance",
+      "category_label": "Finance",
+      "description": "Ferramentas financeiras",
+      "file": "finance/stock-chart.jsx",
+      "size_bytes": 4318,
+      "tags": [
+        "finance",
+        "stock-chart"
+      ]
+    },
+    {
+      "id": "games/flappy-bird",
+      "title": "Flappy Bird",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/flappy-bird.jsx",
+      "size_bytes": 7402,
+      "tags": [
+        "games",
+        "flappy-bird"
+      ]
+    },
+    {
+      "id": "games/game-of-life",
+      "title": "Game Of Life",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/game-of-life.jsx",
+      "size_bytes": 6640,
+      "tags": [
+        "games",
+        "game-of-life"
+      ]
+    },
+    {
+      "id": "games/maze-generator",
+      "title": "Maze Generator",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/maze-generator.jsx",
+      "size_bytes": 8037,
+      "tags": [
+        "games",
+        "maze-generator"
+      ]
+    },
+    {
+      "id": "games/minesweeper",
+      "title": "Minesweeper",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/minesweeper.jsx",
+      "size_bytes": 10027,
+      "tags": [
+        "games",
+        "minesweeper"
+      ]
+    },
+    {
+      "id": "games/pong",
+      "title": "Pong",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/pong.jsx",
+      "size_bytes": 9596,
+      "tags": [
+        "games",
+        "pong"
+      ]
+    },
+    {
+      "id": "games/snake",
+      "title": "Snake",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/snake.jsx",
+      "size_bytes": 7924,
+      "tags": [
+        "games",
+        "snake"
+      ]
+    },
+    {
+      "id": "games/sudoku",
+      "title": "Sudoku",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/sudoku.jsx",
+      "size_bytes": 9415,
+      "tags": [
+        "games",
+        "sudoku"
+      ]
+    },
+    {
+      "id": "games/tetris",
+      "title": "Tetris",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/tetris.jsx",
+      "size_bytes": 10930,
+      "tags": [
+        "games",
+        "tetris"
+      ]
+    },
+    {
+      "id": "games/tic-tac-toe",
+      "title": "Tic Tac Toe",
+      "category": "games",
+      "category_label": "Games",
+      "description": "Jogos e simula\u00e7\u00f5es l\u00fadicas",
+      "file": "games/tic-tac-toe.jsx",
+      "size_bytes": 8482,
+      "tags": [
+        "games",
+        "tic-tac-toe"
+      ]
+    },
+    {
+      "id": "geography/coordinates",
+      "title": "Coordinates",
+      "category": "geography",
+      "category_label": "Geography",
+      "description": "Mapas e geografia",
+      "file": "geography/coordinates.jsx",
+      "size_bytes": 9698,
+      "tags": [
+        "geography",
+        "coordinates"
+      ]
+    },
+    {
+      "id": "geography/distance-calc",
+      "title": "Distance Calc",
+      "category": "geography",
+      "category_label": "Geography",
+      "description": "Mapas e geografia",
+      "file": "geography/distance-calc.jsx",
+      "size_bytes": 5391,
+      "tags": [
+        "geography",
+        "distance-calc"
+      ]
+    },
+    {
+      "id": "geography/globe",
+      "title": "Globe",
+      "category": "geography",
+      "category_label": "Geography",
+      "description": "Mapas e geografia",
+      "file": "geography/globe.jsx",
+      "size_bytes": 9856,
+      "tags": [
+        "geography",
+        "globe"
+      ]
+    },
+    {
+      "id": "geography/sun-position",
+      "title": "Sun Position",
+      "category": "geography",
+      "category_label": "Geography",
+      "description": "Mapas e geografia",
+      "file": "geography/sun-position.jsx",
+      "size_bytes": 7919,
+      "tags": [
+        "geography",
+        "sun-position"
+      ]
+    },
+    {
+      "id": "geography/wind-map",
+      "title": "Wind Map",
+      "category": "geography",
+      "category_label": "Geography",
+      "description": "Mapas e geografia",
+      "file": "geography/wind-map.jsx",
+      "size_bytes": 4757,
+      "tags": [
+        "geography",
+        "wind-map"
+      ]
+    },
+    {
+      "id": "graphics/barnsley-fern",
+      "title": "Barnsley Fern",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/barnsley-fern.jsx",
+      "size_bytes": 9175,
+      "tags": [
+        "graphics",
+        "barnsley-fern"
+      ]
+    },
+    {
+      "id": "graphics/julia-set",
+      "title": "Julia Set",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/julia-set.jsx",
+      "size_bytes": 6712,
+      "tags": [
+        "graphics",
+        "julia-set"
+      ]
+    },
+    {
+      "id": "graphics/l-system-tree",
+      "title": "L System Tree",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/l-system-tree.jsx",
+      "size_bytes": 5056,
+      "tags": [
+        "graphics",
+        "l-system-tree"
+      ]
+    },
+    {
+      "id": "graphics/lorenz-attractor",
+      "title": "Lorenz Attractor",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/lorenz-attractor.jsx",
+      "size_bytes": 5885,
+      "tags": [
+        "graphics",
+        "lorenz-attractor"
+      ]
+    },
+    {
+      "id": "graphics/mandelbrot",
+      "title": "Mandelbrot",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/mandelbrot.jsx",
+      "size_bytes": 7586,
+      "tags": [
+        "graphics",
+        "mandelbrot"
+      ]
+    },
+    {
+      "id": "graphics/perlin-terrain",
+      "title": "Perlin Terrain",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/perlin-terrain.jsx",
+      "size_bytes": 6284,
+      "tags": [
+        "graphics",
+        "perlin-terrain"
+      ]
+    },
+    {
+      "id": "graphics/plasma-effect",
+      "title": "Plasma Effect",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/plasma-effect.jsx",
+      "size_bytes": 5730,
+      "tags": [
+        "graphics",
+        "plasma-effect"
+      ]
+    },
+    {
+      "id": "graphics/sierpinski-triangle",
+      "title": "Sierpinski Triangle",
+      "category": "graphics",
+      "category_label": "Graphics",
+      "description": "Geradores visuais, fractais e efeitos",
+      "file": "graphics/sierpinski-triangle.jsx",
+      "size_bytes": 7347,
+      "tags": [
+        "graphics",
+        "sierpinski-triangle"
+      ]
+    },
+    {
+      "id": "math/3d-surface",
+      "title": "3d Surface",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/3d-surface.jsx",
+      "size_bytes": 5338,
+      "tags": [
+        "math",
+        "3d-surface"
+      ]
+    },
+    {
+      "id": "math/fourier-series",
+      "title": "Fourier Series",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/fourier-series.jsx",
+      "size_bytes": 4748,
+      "tags": [
+        "math",
+        "fourier-series"
+      ]
+    },
+    {
+      "id": "math/function-plotter",
+      "title": "Function Plotter",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/function-plotter.jsx",
+      "size_bytes": 4827,
+      "tags": [
+        "math",
+        "function-plotter"
+      ]
+    },
+    {
+      "id": "math/parametric-curve",
+      "title": "Parametric Curve",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/parametric-curve.jsx",
+      "size_bytes": 6472,
+      "tags": [
+        "math",
+        "parametric-curve"
+      ]
+    },
+    {
+      "id": "math/pascals-triangle",
+      "title": "Pascals Triangle",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/pascals-triangle.jsx",
+      "size_bytes": 4375,
+      "tags": [
+        "math",
+        "pascals-triangle"
+      ]
+    },
+    {
+      "id": "math/prime-spiral",
+      "title": "Prime Spiral",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/prime-spiral.jsx",
+      "size_bytes": 5197,
+      "tags": [
+        "math",
+        "prime-spiral"
+      ]
+    },
+    {
+      "id": "math/taylor-series",
+      "title": "Taylor Series",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/taylor-series.jsx",
+      "size_bytes": 5272,
+      "tags": [
+        "math",
+        "taylor-series"
+      ]
+    },
+    {
+      "id": "math/vector-field",
+      "title": "Vector Field",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00f5es matem\u00e1ticas",
+      "file": "math/vector-field.jsx",
+      "size_bytes": 7046,
+      "tags": [
+        "math",
+        "vector-field"
+      ]
+    },
+    {
+      "id": "network/dns-lookup",
+      "title": "Dns Lookup",
+      "category": "network",
+      "category_label": "Network",
+      "description": "Ferramentas de rede",
+      "file": "network/dns-lookup.jsx",
+      "size_bytes": 3230,
+      "tags": [
+        "network",
+        "dns-lookup"
+      ]
+    },
+    {
+      "id": "network/ip-calc",
+      "title": "Ip Calc",
+      "category": "network",
+      "category_label": "Network",
+      "description": "Ferramentas de rede",
+      "file": "network/ip-calc.jsx",
+      "size_bytes": 3816,
+      "tags": [
+        "network",
+        "ip-calc"
+      ]
+    },
+    {
+      "id": "network/ping-monitor",
+      "title": "Ping Monitor",
+      "category": "network",
+      "category_label": "Network",
+      "description": "Ferramentas de rede",
+      "file": "network/ping-monitor.jsx",
+      "size_bytes": 2881,
+      "tags": [
+        "network",
+        "ping-monitor"
+      ]
+    },
+    {
+      "id": "physics/brownian-motion",
+      "title": "Brownian Motion",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/brownian-motion.jsx",
+      "size_bytes": 10901,
+      "tags": [
+        "physics",
+        "brownian-motion"
+      ]
+    },
+    {
+      "id": "physics/double-pendulum",
+      "title": "Double Pendulum",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/double-pendulum.jsx",
+      "size_bytes": 10215,
+      "tags": [
+        "physics",
+        "double-pendulum"
+      ]
+    },
+    {
+      "id": "physics/electric-field",
+      "title": "Electric Field",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/electric-field.jsx",
+      "size_bytes": 10520,
+      "tags": [
+        "physics",
+        "electric-field"
+      ]
+    },
+    {
+      "id": "physics/gravitational-orbits",
+      "title": "Gravitational Orbits",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/gravitational-orbits.jsx",
+      "size_bytes": 9597,
+      "tags": [
+        "physics",
+        "gravitational-orbits"
+      ]
+    },
+    {
+      "id": "physics/ideal-gas",
+      "title": "Ideal Gas",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/ideal-gas.jsx",
+      "size_bytes": 10734,
+      "tags": [
+        "physics",
+        "ideal-gas"
+      ]
+    },
+    {
+      "id": "physics/pendulum-wave",
+      "title": "Pendulum Wave",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/pendulum-wave.jsx",
+      "size_bytes": 6687,
+      "tags": [
+        "physics",
+        "pendulum-wave"
+      ]
+    },
+    {
+      "id": "physics/projectile-motion",
+      "title": "Projectile Motion",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/projectile-motion.jsx",
+      "size_bytes": 9010,
+      "tags": [
+        "physics",
+        "projectile-motion"
+      ]
+    },
+    {
+      "id": "physics/quantum-wave",
+      "title": "Quantum Wave",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/quantum-wave.jsx",
+      "size_bytes": 8659,
+      "tags": [
+        "physics",
+        "quantum-wave"
+      ]
+    },
+    {
+      "id": "physics/spring-mass",
+      "title": "Spring Mass",
+      "category": "physics",
+      "category_label": "Physics",
+      "description": "Simula\u00e7\u00f5es f\u00edsicas interativas",
+      "file": "physics/spring-mass.jsx",
+      "size_bytes": 12591,
+      "tags": [
+        "physics",
+        "spring-mass"
+      ]
+    },
+    {
+      "id": "productivity/habit-tracker",
+      "title": "Habit Tracker",
+      "category": "productivity",
+      "category_label": "Productivity",
+      "description": "Ferramentas de produtividade",
+      "file": "productivity/habit-tracker.jsx",
+      "size_bytes": 6583,
+      "tags": [
+        "productivity",
+        "habit-tracker"
+      ]
+    },
+    {
+      "id": "productivity/kanban",
+      "title": "Kanban",
+      "category": "productivity",
+      "category_label": "Productivity",
+      "description": "Ferramentas de produtividade",
+      "file": "productivity/kanban.jsx",
+      "size_bytes": 6080,
+      "tags": [
+        "productivity",
+        "kanban"
+      ]
+    },
+    {
+      "id": "productivity/notes",
+      "title": "Notes",
+      "category": "productivity",
+      "category_label": "Productivity",
+      "description": "Ferramentas de produtividade",
+      "file": "productivity/notes.jsx",
+      "size_bytes": 5752,
+      "tags": [
+        "productivity",
+        "notes"
+      ]
+    },
+    {
+      "id": "productivity/sticky-notes",
+      "title": "Sticky Notes",
+      "category": "productivity",
+      "category_label": "Productivity",
+      "description": "Ferramentas de produtividade",
+      "file": "productivity/sticky-notes.jsx",
+      "size_bytes": 5638,
+      "tags": [
+        "productivity",
+        "sticky-notes"
+      ]
+    },
+    {
+      "id": "productivity/todo-list",
+      "title": "Todo List",
+      "category": "productivity",
+      "category_label": "Productivity",
+      "description": "Ferramentas de produtividade",
+      "file": "productivity/todo-list.jsx",
+      "size_bytes": 5207,
+      "tags": [
+        "productivity",
+        "todo-list"
+      ]
+    },
+    {
+      "id": "productivity/whiteboard",
+      "title": "Whiteboard",
+      "category": "productivity",
+      "category_label": "Productivity",
+      "description": "Ferramentas de produtividade",
+      "file": "productivity/whiteboard.jsx",
+      "size_bytes": 5523,
+      "tags": [
+        "productivity",
+        "whiteboard"
+      ]
+    },
+    {
+      "id": "science/atom-model",
+      "title": "Atom Model",
+      "category": "science",
+      "category_label": "Science",
+      "description": "Ferramentas cient\u00edficas",
+      "file": "science/atom-model.jsx",
+      "size_bytes": 4796,
+      "tags": [
+        "science",
+        "atom-model"
+      ]
+    },
+    {
+      "id": "science/dna-helix",
+      "title": "Dna Helix",
+      "category": "science",
+      "category_label": "Science",
+      "description": "Ferramentas cient\u00edficas",
+      "file": "science/dna-helix.jsx",
+      "size_bytes": 4765,
+      "tags": [
+        "science",
+        "dna-helix"
+      ]
+    },
+    {
+      "id": "science/periodic-table",
+      "title": "Periodic Table",
+      "category": "science",
+      "category_label": "Science",
+      "description": "Ferramentas cient\u00edficas",
+      "file": "science/periodic-table.jsx",
+      "size_bytes": 17563,
+      "tags": [
+        "science",
+        "periodic-table"
+      ]
+    },
+    {
+      "id": "science/ph-scale",
+      "title": "Ph Scale",
+      "category": "science",
+      "category_label": "Science",
+      "description": "Ferramentas cient\u00edficas",
+      "file": "science/ph-scale.jsx",
+      "size_bytes": 3194,
+      "tags": [
+        "science",
+        "ph-scale"
+      ]
+    },
+    {
+      "id": "science/solar-system",
+      "title": "Solar System",
+      "category": "science",
+      "category_label": "Science",
+      "description": "Ferramentas cient\u00edficas",
+      "file": "science/solar-system.jsx",
+      "size_bytes": 4847,
+      "tags": [
+        "science",
+        "solar-system"
+      ]
+    },
+    {
+      "id": "science/star-chart",
+      "title": "Star Chart",
+      "category": "science",
+      "category_label": "Science",
+      "description": "Ferramentas cient\u00edficas",
+      "file": "science/star-chart.jsx",
+      "size_bytes": 4917,
+      "tags": [
+        "science",
+        "star-chart"
+      ]
+    },
+    {
+      "id": "templates/blank-canvas",
+      "title": "Blank Canvas",
+      "category": "templates",
+      "category_label": "Templates",
+      "description": "Modelos reutiliz\u00e1veis para novos widgets",
+      "file": "templates/blank-canvas.jsx",
+      "size_bytes": 2675,
+      "tags": [
+        "templates",
+        "blank-canvas"
+      ]
+    },
+    {
+      "id": "templates/blank-fetch-api",
+      "title": "Blank Fetch Api",
+      "category": "templates",
+      "category_label": "Templates",
+      "description": "Modelos reutiliz\u00e1veis para novos widgets",
+      "file": "templates/blank-fetch-api.jsx",
+      "size_bytes": 3591,
+      "tags": [
+        "templates",
+        "blank-fetch-api"
+      ]
+    },
+    {
+      "id": "templates/blank-form",
+      "title": "Blank Form",
+      "category": "templates",
+      "category_label": "Templates",
+      "description": "Modelos reutiliz\u00e1veis para novos widgets",
+      "file": "templates/blank-form.jsx",
+      "size_bytes": 4593,
+      "tags": [
+        "templates",
+        "blank-form"
+      ]
+    },
+    {
+      "id": "templates/blank-svg",
+      "title": "Blank Svg",
+      "category": "templates",
+      "category_label": "Templates",
+      "description": "Modelos reutiliz\u00e1veis para novos widgets",
+      "file": "templates/blank-svg.jsx",
+      "size_bytes": 3285,
+      "tags": [
+        "templates",
+        "blank-svg"
+      ]
+    },
+    {
+      "id": "text/base64-tool",
+      "title": "Base64 Tool",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/base64-tool.jsx",
+      "size_bytes": 4625,
+      "tags": [
+        "text",
+        "base64-tool"
+      ]
+    },
+    {
+      "id": "text/diff-viewer",
+      "title": "Diff Viewer",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/diff-viewer.jsx",
+      "size_bytes": 4881,
+      "tags": [
+        "text",
+        "diff-viewer"
+      ]
+    },
+    {
+      "id": "text/json-formatter",
+      "title": "Json Formatter",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/json-formatter.jsx",
+      "size_bytes": 4536,
+      "tags": [
+        "text",
+        "json-formatter"
+      ]
+    },
+    {
+      "id": "text/lorem-ipsum",
+      "title": "Lorem Ipsum",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/lorem-ipsum.jsx",
+      "size_bytes": 3687,
+      "tags": [
+        "text",
+        "lorem-ipsum"
+      ]
+    },
+    {
+      "id": "text/markdown-preview",
+      "title": "Markdown Preview",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/markdown-preview.jsx",
+      "size_bytes": 4109,
+      "tags": [
+        "text",
+        "markdown-preview"
+      ]
+    },
+    {
+      "id": "text/morse-code",
+      "title": "Morse Code",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/morse-code.jsx",
+      "size_bytes": 6599,
+      "tags": [
+        "text",
+        "morse-code"
+      ]
+    },
+    {
+      "id": "text/regex-tester",
+      "title": "Regex Tester",
+      "category": "text",
+      "category_label": "Text",
+      "description": "Ferramentas de texto e processamento",
+      "file": "text/regex-tester.jsx",
+      "size_bytes": 5264,
+      "tags": [
+        "text",
+        "regex-tester"
+      ]
+    },
+    {
+      "id": "time/analog-clock",
+      "title": "Analog Clock",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/analog-clock.jsx",
+      "size_bytes": 3080,
+      "tags": [
+        "time",
+        "analog-clock"
+      ]
+    },
+    {
+      "id": "time/countdown",
+      "title": "Countdown",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/countdown.jsx",
+      "size_bytes": 4660,
+      "tags": [
+        "time",
+        "countdown"
+      ]
+    },
+    {
+      "id": "time/date-calculator",
+      "title": "Date Calculator",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/date-calculator.jsx",
+      "size_bytes": 6035,
+      "tags": [
+        "time",
+        "date-calculator"
+      ]
+    },
+    {
+      "id": "time/digital-clock",
+      "title": "Digital Clock",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/digital-clock.jsx",
+      "size_bytes": 2214,
+      "tags": [
+        "time",
+        "digital-clock"
+      ]
+    },
+    {
+      "id": "time/pomodoro",
+      "title": "Pomodoro",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/pomodoro.jsx",
+      "size_bytes": 4343,
+      "tags": [
+        "time",
+        "pomodoro"
+      ]
+    },
+    {
+      "id": "time/timeline",
+      "title": "Timeline",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/timeline.jsx",
+      "size_bytes": 6304,
+      "tags": [
+        "time",
+        "timeline"
+      ]
+    },
+    {
+      "id": "time/world-clock",
+      "title": "World Clock",
+      "category": "time",
+      "category_label": "Time",
+      "description": "Rel\u00f3gios, cron\u00f4metros e calend\u00e1rios",
+      "file": "time/world-clock.jsx",
+      "size_bytes": 4108,
+      "tags": [
+        "time",
+        "world-clock"
+      ]
+    },
+    {
+      "id": "utils/calculator",
+      "title": "Calculator",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/calculator.jsx",
+      "size_bytes": 5705,
+      "tags": [
+        "utils",
+        "calculator"
+      ]
+    },
+    {
+      "id": "utils/calendar",
+      "title": "Calendar",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/calendar.jsx",
+      "size_bytes": 4597,
+      "tags": [
+        "utils",
+        "calendar"
+      ]
+    },
+    {
+      "id": "utils/color-picker",
+      "title": "Color Picker",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/color-picker.jsx",
+      "size_bytes": 5726,
+      "tags": [
+        "utils",
+        "color-picker"
+      ]
+    },
+    {
+      "id": "utils/password-gen",
+      "title": "Password Gen",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/password-gen.jsx",
+      "size_bytes": 4890,
+      "tags": [
+        "utils",
+        "password-gen"
+      ]
+    },
+    {
+      "id": "utils/qr-code",
+      "title": "Qr Code",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/qr-code.jsx",
+      "size_bytes": 3548,
+      "tags": [
+        "utils",
+        "qr-code"
+      ]
+    },
+    {
+      "id": "utils/stopwatch",
+      "title": "Stopwatch",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/stopwatch.jsx",
+      "size_bytes": 2728,
+      "tags": [
+        "utils",
+        "stopwatch"
+      ]
+    },
+    {
+      "id": "utils/unit-converter",
+      "title": "Unit Converter",
+      "category": "utils",
+      "category_label": "Utils",
+      "description": "Utilit\u00e1rios diversos",
+      "file": "utils/unit-converter.jsx",
+      "size_bytes": 4109,
+      "tags": [
+        "utils",
+        "unit-converter"
+      ]
+    },
+    {
+      "id": "weather/moon-phase",
+      "title": "Moon Phase",
+      "category": "weather",
+      "category_label": "Weather",
+      "description": "Ferramentas clim\u00e1ticas",
+      "file": "weather/moon-phase.jsx",
+      "size_bytes": 3327,
+      "tags": [
+        "weather",
+        "moon-phase"
+      ]
+    },
+    {
+      "id": "weather/thermometer",
+      "title": "Thermometer",
+      "category": "weather",
+      "category_label": "Weather",
+      "description": "Ferramentas clim\u00e1ticas",
+      "file": "weather/thermometer.jsx",
+      "size_bytes": 2967,
+      "tags": [
+        "weather",
+        "thermometer"
+      ]
+    },
+    {
+      "id": "weather/wind-compass",
+      "title": "Wind Compass",
+      "category": "weather",
+      "category_label": "Weather",
+      "description": "Ferramentas clim\u00e1ticas",
+      "file": "weather/wind-compass.jsx",
+      "size_bytes": 4127,
+      "tags": [
+        "weather",
+        "wind-compass"
+      ]
+    }
+  ],
+  "total": 118
+}

@@ -1,6 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 
-const SECTION = { DEMO: 'demo', CUSTOM: 'custom', LIBRARY: 'library' };
+const BASE_URL = import.meta.env.BASE_URL || '/';
+
+const SECTION = { DEMO: 'demo', CUSTOM: 'custom', LIBRARY: 'library', LOCAL: 'local' };
 
 const ICONS = {
   hamburger: (
@@ -44,6 +46,16 @@ const ICONS = {
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><path d="M10 14L21 3" />
     </svg>
   ),
+  database: (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+    </svg>
+  ),
+  package: (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16.5 9.4 7.55 4.24" /><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" />
+    </svg>
+  ),
   chevron: (
     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="9 18 15 12 9 6" />
@@ -55,11 +67,24 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets }) {
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [customCode, setCustomCode] = useState('');
+  const [catalog, setCatalog] = useState(null);
+  const [catalogLoading, setCatalogLoading] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(null);
   const fileInputRef = useRef(null);
 
   const toggleSection = useCallback((section) => {
     setExpanded((prev) => (prev === section ? null : section));
   }, []);
+
+  useEffect(() => {
+    if (expanded !== SECTION.LOCAL || catalog) return;
+    setCatalogLoading(true);
+    fetch(`${BASE_URL}widgets-database/index.json`)
+      .then((r) => r.json())
+      .then((data) => setCatalog(data))
+      .catch(() => setCatalog(null))
+      .finally(() => setCatalogLoading(false));
+  }, [expanded, catalog]);
 
   const handleCreateCustom = useCallback(() => {
     const trimmed = customCode.trim();
@@ -71,6 +96,23 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets }) {
       source_code: trimmed,
     });
   }, [customCode, onCreateFromPayload]);
+
+  const handleLoadWidget = useCallback((widget, cat) => {
+    const fileUrl = `${BASE_URL}widgets-database/${widget.file}`;
+    fetch(fileUrl)
+      .then((r) => r.text())
+      .then((src) => {
+        onCreateFromPayload({
+          widget_id: widget.id + '-' + Date.now(),
+          title: widget.title,
+          width: 480,
+          height: 400,
+          source_code: src,
+        });
+        setIsOpen(false);
+      })
+      .catch(() => {});
+  }, [onCreateFromPayload]);
 
   const handleFileOpen = useCallback(() => {
     fileInputRef.current?.click();
@@ -223,13 +265,38 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets }) {
               </button>
             </div>
           </SidebarItem>
+
+          <SidebarItem
+            icon={ICONS.database}
+            label="Biblioteca Local"
+            expanded={expanded === SECTION.LOCAL}
+            onClick={() => toggleSection(SECTION.LOCAL)}
+            chevron={ICONS.chevron}
+            badge={catalog && !catalogLoading ? String(catalog.widgets.length) : null}
+          >
+            <div className="pt-2 space-y-2">
+              {catalogLoading ? (
+                <p className="text-xs text-slate-500 animate-pulse">Carregando catálogo...</p>
+              ) : !catalog ? (
+                <p className="text-xs text-slate-500">Catálogo indisponível.</p>
+              ) : (
+                <CategoriesList
+                  widgets={catalog.widgets}
+                  categoryOpen={categoryOpen}
+                  onToggleCat={(cat) => setCategoryOpen((prev) => (prev === cat ? null : cat))}
+                  onLoad={handleLoadWidget}
+                  ICONS={ICONS}
+                />
+              )}
+            </div>
+          </SidebarItem>
         </div>
       </div>
     </>
   );
 }
 
-function SidebarItem({ icon, label, children, expanded, onClick, chevron }) {
+function SidebarItem({ icon, label, children, expanded, onClick, chevron, badge }) {
   return (
     <div>
       <button
@@ -238,11 +305,59 @@ function SidebarItem({ icon, label, children, expanded, onClick, chevron }) {
       >
         <span className="shrink-0 text-slate-500">{icon}</span>
         <span>{label}</span>
+        {badge && (
+          <span className="px-1.5 py-0.5 text-[10px] font-semibold text-teal-400 bg-teal-400/10 rounded">{badge}</span>
+        )}
         <span className={`ml-auto transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`}>
           {chevron}
         </span>
       </button>
       {expanded && <div className="px-4 pb-3">{children}</div>}
+    </div>
+  );
+}
+
+function CategoriesList({ widgets, categoryOpen, onToggleCat, onLoad, ICONS }) {
+  const cats = {};
+  widgets.forEach((w) => {
+    if (!cats[w.category]) cats[w.category] = [];
+    cats[w.category].push(w);
+  });
+  return (
+    <div className="space-y-1 max-h-80 overflow-y-auto scrollbar-thin">
+      {Object.keys(cats).sort().map((cat) => {
+        const items = cats[cat];
+        const isOpen = categoryOpen === cat;
+        return (
+          <div key={cat}>
+            <button
+              onClick={() => onToggleCat(cat)}
+              className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs text-slate-400 hover:text-slate-200 hover:bg-white/[0.03] transition-colors"
+            >
+              <span className={`transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}>
+                {ICONS.chevron}
+              </span>
+              <span className="capitalize">{cat.replace('-', ' ')}</span>
+              <span className="ml-auto text-[10px] text-slate-600">{items.length}</span>
+            </button>
+            {isOpen && (
+              <div className="ml-3 space-y-0.5 border-l border-slate-700/50 pl-2">
+                {items.map((w) => (
+                  <div key={w.id} className="flex items-center gap-2 py-1">
+                    <span className="text-xs text-slate-500 truncate flex-1">{w.title}</span>
+                    <button
+                      onClick={() => onLoad(w, cat)}
+                      className="shrink-0 px-2 py-0.5 text-[10px] font-medium text-teal-400 bg-teal-400/10 rounded hover:bg-teal-400/20 transition-colors"
+                    >
+                      {ICONS.package}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
