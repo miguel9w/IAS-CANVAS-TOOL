@@ -20,6 +20,7 @@ import { useWebSocket } from './useWebSocket';
 import { appBus } from './eventBus';
 import FloatingWindow from './FloatingWindow';
 import Sidebar from './Sidebar';
+import PresentationMode from './PresentationMode';
 
 const WS_URL = 'ws://localhost:8080';
 
@@ -197,6 +198,7 @@ export default function App() {
   });
   const [activeId, setActiveId] = useState(null);
   const [decorationsVisible, setDecorationsVisible] = useState(true);
+  const [presentationMode, setPresentationMode] = useState(false);
 
   // Pan (deslocamento) do canvas infinito.
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -374,6 +376,10 @@ export default function App() {
     return 'bg-red-500';
   }, [wsStatus]);
 
+    if (presentationMode && windows.length > 0) {
+      return React.createElement(PresentationMode, { windows: windows, appBus: appBus, onExit: function () { setPresentationMode(false); }, startIndex: 0 });
+    }
+
     return (<>
       {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} />}
     <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
@@ -423,19 +429,32 @@ export default function App() {
             onResize={resizeWindow}
           />
         ))}
-        <button
-          onClick={() => setDecorationsVisible((v) => !v)}
-          className="fixed bottom-4 left-4 z-50 flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
-          title={decorationsVisible ? 'Ocultar decorações' : 'Mostrar decorações'}
-        >
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            {decorationsVisible
-              ? <><path d="M4 20h16" /><path d="M4 4h16" /><path d="M4 8h16" /><path d="M4 12h16" /><path d="M4 16h16" /></>
-              : <><path d="M6 4h12v16H6z" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h8" /></>
-            }
-          </svg>
-          {decorationsVisible ? 'Decorações' : 'Decorações'}
-        </button>
+        <div className="fixed bottom-4 left-4 z-50 flex gap-2">
+          <button
+            onClick={() => setDecorationsVisible((v) => !v)}
+            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
+            title={decorationsVisible ? 'Ocultar decorações' : 'Mostrar decorações'}
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {decorationsVisible
+                ? <><path d="M4 20h16" /><path d="M4 4h16" /><path d="M4 8h16" /><path d="M4 12h16" /><path d="M4 16h16" /></>
+                : <><path d="M6 4h12v16H6z" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h8" /></>
+              }
+            </svg>
+            Decorações
+          </button>
+          <button
+            onClick={() => setPresentationMode(true)}
+            disabled={windows.length === 0}
+            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur transition-all"
+            title="Modo apresentação"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8" /><path d="M12 17v4" />
+            </svg>
+            Apresentar
+          </button>
+        </div>
       </div>
     </div>
   </>);
