@@ -30,7 +30,7 @@ export default function PresentationMode({ windows, appBus, onExit, startIndex }
   if (!win) return null;
 
   var btn = {
-    position: 'fixed', zIndex: 9999, fontFamily: 'monospace', fontSize: 11,
+    fontFamily: 'monospace', fontSize: 11,
     border: '1px solid rgba(148,163,184,0.15)', borderRadius: 8,
     cursor: 'pointer', transition: 'all 0.15s',
     padding: '7px 14px', fontWeight: 600,
@@ -45,7 +45,7 @@ export default function PresentationMode({ windows, appBus, onExit, startIndex }
       )
     ),
     React.createElement('div', { style: { position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, padding: '12px 20px', background: 'linear-gradient(transparent, rgba(11,17,32,0.95))' } },
-      React.createElement('button', { onClick: onExit, style: Object.assign({}, btn, { left: 20, bottom: 12, position: 'fixed', background: 'rgba(239,68,68,0.2)', color: '#fca5a5', borderColor: 'rgba(239,68,68,0.3)' }) },
+      React.createElement('button', { onClick: onExit, style: Object.assign({}, btn, { position: 'absolute', left: 20, bottom: 12, background: 'rgba(239,68,68,0.2)', color: '#fca5a5', borderColor: 'rgba(239,68,68,0.3)' }) },
         'Sair \u2716'
       ),
       React.createElement('button', { onClick: goPrev, disabled: slide === 0, style: Object.assign({}, btn, { opacity: slide === 0 ? 0.3 : 1 }) },
