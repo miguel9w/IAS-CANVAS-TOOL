@@ -54,27 +54,38 @@ opencode-canvas/
 ├── install.ps1                     # instalador Windows (idem)
 │
 ├── core-platform/                  # Core React + Vite (sempre necessário)
+│   ├── public/widgets-database/    # catálogo de widgets pré-instalados
 │   └── src/
 │       ├── App.jsx                 # estado das janelas, canvas, WebSocket
 │       ├── FloatingWindow.jsx      # moldura da janela (drag/resize/close)
 │       ├── WidgetWrapper.jsx       # compila e renderiza o JSX dinâmico
+│       ├── Sidebar.jsx             # menu lateral (demo, custom, biblioteca)
 │       ├── eventBus.js             # appBus — EventEmitter simples (pub/sub)
 │       └── useWebSocket.js         # hook de conexão com reconexão automática
-│   (package.json, vite.config.js, index.html, src/main.jsx são gerados
-│    pelo install.sh/install.ps1 na primeira execução)
 │
 ├── .opencode/
 │   └── plugins/
 │       └── canvas-plugin.js        # plugin REAL do OpenCode (Bun.serve nativo)
 │
 ├── pi-canvas-package/               # pacote REAL do Pi
-│   ├── package.json                 # manifesto "pi" + deps (ws) + peerDeps
+│   ├── package.json
 │   └── extensions/
-│       └── canvas.ts                # a extensão em si (TypeScript)
+│       └── canvas.ts                # extensão Pi (TypeScript + ws)
 │
-└── opencode-plugin/                  # versão standalone antiga (legado/opcional)
-    ├── plugin.js                     # servidor WS + CLI de teste manual
-    └── package.json
+├── opencode-plugin/                  # versão standalone antiga (legado)
+│   ├── plugin.js
+│   └── package.json
+│
+├── widgets-database/                # fonte dos widgets do catálogo
+│   ├── games/ finance/ geography/ math/ physics/ text/ time/ utils/
+│   └── ...
+│
+├── docs/
+│   └── superpowers/
+│       ├── specs/                   # design docs
+│       └── plans/                   # planos de implementação
+│
+└── .superpowers/                    # cache de execução (gitignorado)
 ```
 
 ## Instalação

@@ -219,7 +219,17 @@ export default function App() {
     });
   }, []);
 
-  // --- Handler central de mensagens vindas do Plugin OpenCode -------------
+  // --- WebSocket + Handler central de mensagens vindas do Plugin ----------
+  // sendRef evita TDZ: o useCallback abaixo precisa de send, mas send
+  // só é obtido do useWebSocket. Colocamos num ref que é preenchido
+  // assim que useWebSocket retornar.
+  const sendRef = useRef(null);
+  const { status: wsStatus, send } = useWebSocket(WS_URL, {
+    onMessage(msg) { handleSocketMessageRef.current?.(msg); },
+  });
+  sendRef.current = send;
+
+  const handleSocketMessageRef = useRef(null);
   const handleSocketMessage = useCallback(
     (message) => {
       if (!message || typeof message !== 'object') return;
@@ -246,6 +256,8 @@ export default function App() {
                     title: payload.title ?? w.title,
                     width: payload.width ?? w.width,
                     height: payload.height ?? w.height,
+                    x: payload.x ?? w.x,
+                    y: payload.y ?? w.y,
                     source_code: payload.source_code ?? w.source_code,
                   }
                 : w
@@ -262,8 +274,7 @@ export default function App() {
         }
 
         case 'LIST_WIDGETS': {
-          // Responde com snapshot dos widgets atuais
-          send({
+          sendRef.current?.({
             action: 'WIDGET_EVENT',
             payload: {
               widget_id: '__system__',
@@ -284,12 +295,10 @@ export default function App() {
         case 'QUERY_STATE': {
           const widgetId = message.payload?.widget_id;
           if (!widgetId) return;
-          // Encaminha pro widget via appBus
           appBus.emit('ai:command:' + widgetId, {
             command: 'query_state',
             queryId: message.payload?.queryId,
           });
-          // Widget pode responder com appBus.emit('ai:emit', { widget_id, type, data })
           break;
         }
 
@@ -304,18 +313,17 @@ export default function App() {
           console.warn('[App] Action desconhecida:', message.action);
       }
     },
-    [createWindowFromPayload, send, windows]
+    [createWindowFromPayload, windows]
   );
-
-  const { status: wsStatus, send } = useWebSocket(WS_URL, { onMessage: handleSocketMessage });
+  handleSocketMessageRef.current = handleSocketMessage;
 
   // --- Ponte appBus → WebSocket (widget → IA) ----------------------------
   useEffect(() => {
     const unsub = appBus.on('ai:emit', (payload) => {
-      send({ action: 'WIDGET_EVENT', payload });
+      sendRef.current?.({ action: 'WIDGET_EVENT', payload });
     });
     return unsub;
-  }, [send]);
+  }, []);
 
   // --- Manipulação de janelas ----------------------------------------------
   const focusWindow = useCallback((id) => {

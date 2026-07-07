@@ -847,6 +847,19 @@
       ]
     },
     {
+      "id": "math/square-numbers",
+      "title": "Square Numbers",
+      "category": "math",
+      "category_label": "Math",
+      "description": "Visualiza\u00e7\u00e3o de n\u00fameros quadrados com grade de c\u00e9lulas coloridas e soma dos \u00edmpares",
+      "file": "math/square-numbers.jsx",
+      "size_bytes": 0,
+      "tags": [
+        "math",
+        "square-numbers"
+      ]
+    },
+    {
       "id": "math/vector-field",
       "title": "Vector Field",
       "category": "math",

@@ -105,6 +105,11 @@ const replyWaiters = new Map();
  * @returns {Promise<object>}
  */
 function waitForReply(widgetId, timeoutMs) {
+  if (replyWaiters.has(widgetId)) {
+    replyWaiters.get(widgetId).reject(new Error('Substituído por nova chamada'));
+    clearTimeout(replyWaiters.get(widgetId).timer);
+    replyWaiters.delete(widgetId);
+  }
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       replyWaiters.delete(widgetId);
@@ -142,7 +147,7 @@ export const CanvasPlugin = async ({ client }) => {
         args: {
           widget_id: tool.schema
             .string()
-            .describe('Identificador único do widget'),
+            .describe('Identificador único do widget, ex: "contador-1"'),
           title: tool.schema.string().describe('Título exibido na barra da janela'),
           width: tool.schema.number().describe('Largura da janela em pixels'),
           height: tool.schema.number().describe('Altura da janela em pixels'),
@@ -213,7 +218,8 @@ export const CanvasPlugin = async ({ client }) => {
             const widgets = reply.data ?? [];
             return `Widgets no canvas (${widgets.length}):\n` +
               widgets.map((w) => `  - ${w.title} (${w.id})`).join('\n');
-          } catch {
+          } catch (err) {
+            console.error('[canvas-plugin] canvas_list_widgets timeout:', err);
             return 'Não foi possível obter a lista de widgets (timeout).';
           }
         },

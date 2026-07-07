@@ -91,6 +91,11 @@ interface ReplyWaiter {
 const replyWaiters = new Map<string, ReplyWaiter>();
 
 function waitForReply(widgetId: string, timeoutMs: number): Promise<unknown> {
+  if (replyWaiters.has(widgetId)) {
+    replyWaiters.get(widgetId)!.reject(new Error("Substituído por nova chamada"));
+    clearTimeout(replyWaiters.get(widgetId)!.timer);
+    replyWaiters.delete(widgetId);
+  }
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       replyWaiters.delete(widgetId);
