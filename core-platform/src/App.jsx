@@ -15,7 +15,7 @@
 // do mouse). Cada janela vive em coordenadas absolutas dentro dessa camada.
 // -----------------------------------------------------------------------
 
-import React, { useState, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
 import { useWebSocket } from './useWebSocket';
 import { appBus } from './eventBus';
 import FloatingWindow from './FloatingWindow';
@@ -228,21 +228,94 @@ export default function App() {
         case 'CREATE_WIDGET': {
           const { payload } = message;
           if (!payload?.source_code) {
-            console.warn('[App] CREATE_WIDGET recebido sem "source_code", ignorando:', message);
+            console.warn('[App] CREATE_WIDGET sem source_code, ignorando:', message);
             return;
           }
           createWindowFromPayload(payload);
           break;
         }
-        // Espaço reservado para futuras actions: UPDATE_WIDGET, CLOSE_WIDGET, etc.
+
+        case 'UPDATE_WIDGET': {
+          const { payload } = message;
+          if (!payload?.widget_id) return;
+          setWindows((prev) =>
+            prev.map((w) =>
+              w.id === payload.widget_id
+                ? {
+                    ...w,
+                    title: payload.title ?? w.title,
+                    width: payload.width ?? w.width,
+                    height: payload.height ?? w.height,
+                    source_code: payload.source_code ?? w.source_code,
+                  }
+                : w
+            )
+          );
+          break;
+        }
+
+        case 'CLOSE_WIDGET': {
+          const { payload } = message;
+          if (!payload?.widget_id) return;
+          setWindows((prev) => prev.filter((w) => w.id !== payload.widget_id));
+          break;
+        }
+
+        case 'LIST_WIDGETS': {
+          // Responde com snapshot dos widgets atuais
+          send({
+            action: 'WIDGET_EVENT',
+            payload: {
+              widget_id: '__system__',
+              type: 'widget_list',
+              data: windows.map((w) => ({
+                id: w.id,
+                title: w.title,
+                width: w.width,
+                height: w.height,
+                x: w.x,
+                y: w.y,
+              })),
+            },
+          });
+          break;
+        }
+
+        case 'QUERY_STATE': {
+          const widgetId = message.payload?.widget_id;
+          if (!widgetId) return;
+          // Encaminha pro widget via appBus
+          appBus.emit('ai:command:' + widgetId, {
+            command: 'query_state',
+            queryId: message.payload?.queryId,
+          });
+          // Widget pode responder com appBus.emit('ai:emit', { widget_id, type, data })
+          break;
+        }
+
+        case 'WIDGET_COMMAND': {
+          const { widget_id, command, args } = message.payload ?? {};
+          if (!widget_id) return;
+          appBus.emit('ai:command:' + widget_id, { command, args });
+          break;
+        }
+
         default:
-          console.warn('[App] Action desconhecida recebida do plugin:', message.action);
+          console.warn('[App] Action desconhecida:', message.action);
       }
     },
-    [createWindowFromPayload]
+    [createWindowFromPayload, send, windows]
   );
 
-  const { status: wsStatus } = useWebSocket(WS_URL, { onMessage: handleSocketMessage });
+  const { status: wsStatus, send } = useWebSocket(WS_URL, { onMessage: handleSocketMessage });
+
+  // --- Ponte appBus → WebSocket (widget → IA) ----------------------------
+  useEffect(() => {
+    const unsub = appBus.on('ai:emit', (payload) => {
+      send({ action: 'WIDGET_EVENT', payload });
+    });
+    return unsub;
+  }, [send]);
 
   // --- Manipulação de janelas ----------------------------------------------
   const focusWindow = useCallback((id) => {
