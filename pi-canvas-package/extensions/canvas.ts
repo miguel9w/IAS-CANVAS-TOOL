@@ -34,6 +34,24 @@ function ensureServer(ctx: ExtensionContext): void {
     wss = new WebSocketServer({ port: PORT });
     wss.on("connection", (socket) => {
       clients.add(socket);
+
+      socket.on("message", (raw) => {
+        try {
+          const msg = JSON.parse(raw.toString());
+          if (msg.action === "WIDGET_EVENT") {
+            const { payload } = msg;
+            const waiter = replyWaiters.get(payload?.widget_id);
+            if (waiter) {
+              clearTimeout(waiter.timer);
+              replyWaiters.delete(payload.widget_id);
+              waiter.resolve(payload);
+            }
+          }
+        } catch (err) {
+          console.error("[canvas] Erro ao processar mensagem do canvas:", err);
+        }
+      });
+
       socket.on("close", () => clients.delete(socket));
     });
     wss.on("error", (err: Error) => {
@@ -64,6 +82,24 @@ function broadcast(message: unknown): void {
   }
 }
 
+interface ReplyWaiter {
+  resolve: (value: unknown) => void;
+  reject: (reason: Error) => void;
+  timer: NodeJS.Timeout;
+}
+
+const replyWaiters = new Map<string, ReplyWaiter>();
+
+function waitForReply(widgetId: string, timeoutMs: number): Promise<unknown> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      replyWaiters.delete(widgetId);
+      reject(new Error(`Timeout: widget "${widgetId}" não respondeu em ${timeoutMs}ms`));
+    }, timeoutMs);
+    replyWaiters.set(widgetId, { resolve, reject, timer });
+  });
+}
+
 const createWidgetSchema = Type.Object({
   widget_id: Type.String({ description: 'Identificador único do widget, ex: "contador-1"' }),
   title: Type.String({ description: "Título exibido na barra da janela" }),
@@ -72,6 +108,8 @@ const createWidgetSchema = Type.Object({
   source_code: Type.String({
     description: 'Código JSX do componente. Deve declarar: function Widget({ appBus }) { ... }',
   }),
+  expect_response: Type.Optional(Type.Boolean({ description: 'Se true, tool call aguarda resposta do widget' })),
+  reply_timeout: Type.Optional(Type.Number({ description: 'Timeout em ms (padrão: 30000)' })),
 });
 
 export type CreateWidgetParams = Static<typeof createWidgetSchema>;
@@ -108,12 +146,29 @@ export default function (pi: ExtensionAPI) {
         throw new Error("Servidor WebSocket do Canvas indisponível (porta 8080 em uso?).");
       }
 
-      broadcast({ action: "CREATE_WIDGET", payload: params });
+      const { expect_response, reply_timeout, ...widgetParams } = params;
 
-      return {
-        content: [{ type: "text", text: `Widget "${params.title}" criado e enviado ao Canvas.` }],
-        details: { widget_id: params.widget_id },
-      };
+      broadcast({ action: "CREATE_WIDGET", payload: widgetParams });
+
+      if (!expect_response) {
+        return {
+          content: [{ type: "text", text: `Widget "${params.title}" criado e enviado ao Canvas.` }],
+          details: { widget_id: params.widget_id },
+        };
+      }
+
+      try {
+        const reply = await waitForReply(params.widget_id, reply_timeout ?? 30000);
+        return {
+          content: [{ type: "text", text: `Widget "${params.title}" respondeu: ${JSON.stringify(reply)}` }],
+          details: { widget_id: params.widget_id, response: reply },
+        };
+      } catch (err) {
+        return {
+          content: [{ type: "text", text: `Widget "${params.title}" não respondeu a tempo.` }],
+          details: { widget_id: params.widget_id, error: (err as Error).message },
+        };
+      }
     },
   });
 }
