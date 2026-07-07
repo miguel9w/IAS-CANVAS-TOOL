@@ -162,6 +162,56 @@ function Widget({ appBus }) {
 `import`/`export` do próprio `react` são tolerados (o `WidgetWrapper.jsx` os
 resolve internamente) — outras bibliotecas não estão disponíveis.
 
+## API bidirecional widget ↔ IA
+
+Além do `appBus` para comunicação entre widgets, dois eventos reservados
+permitem que o widget converse com a IA que o criou:
+
+### widget → IA: `appBus.emit('ai:emit', data)`
+
+```jsx
+appBus.emit('ai:emit', {
+  widget_id: 'meu-form',          // obrigatório — mesmo passado no create_widget
+  type: 'form_submit',            // identificador livre do evento
+  data: { nome: 'João', email: 'joao@email.com' }
+});
+```
+
+O tool call da IA que criou este widget com `expect_response: true`
+receberá este dado e poderá processá-lo.
+
+### IA → widget: `appBus.on('ai:command:<id>', handler)`
+
+```jsx
+React.useEffect(() => {
+  return appBus.on('ai:command:meu-form', (cmd) => {
+    if (cmd.command === 'reset') {
+      setNome('');
+      setEmail('');
+    }
+    if (cmd.command === 'query_state') {
+      appBus.emit('ai:emit', {
+        widget_id: 'meu-form',
+        type: 'state_response',
+        data: { nome, email }
+      });
+    }
+  });
+}, []);
+```
+
+### Ações do protocolo
+
+| Action | Direção | Descrição |
+|--------|---------|-----------|
+| `CREATE_WIDGET` | IA → Canvas | Criar widget (existente) |
+| `UPDATE_WIDGET` | IA → Canvas | Alterar widget ativo |
+| `CLOSE_WIDGET` | IA → Canvas | Fechar widget |
+| `LIST_WIDGETS` | IA → Canvas | Listar widgets abertos |
+| `QUERY_STATE` | IA → Canvas | Pedir estado de um widget |
+| `WIDGET_COMMAND` | IA → Canvas | Comando direto a um widget |
+| `WIDGET_EVENT` | Canvas → IA | Widget envia dados de volta |
+
 ## Formato da mensagem CREATE_WIDGET (WebSocket, igual nos 3 caminhos)
 
 ```json
@@ -205,10 +255,9 @@ Caso você tenha uma cópia antiga destes arquivos, aqui está o que mudou:
   separadamente em `WidgetWrapper.jsx`, para que um widget quebrado nunca
   derrube o Canvas inteiro.
 
-## Pendências conhecidas
+## Entregues
 
-- Botão para **salvar** um widget em arquivo local e botão para **carregar**
-  um widget de um arquivo (via File System Access API) foram pedidos mas
-  ainda **não foram implementados** — foi confirmado que não há limite de
-  tamanho de código nos widgets (nenhum `maxLength` em nenhum schema), mas a
-  UI de salvar/carregar em si ficou pendente.
+- Botão para **salvar** widget em arquivo local e **carregar** de arquivo
+  (via File System Access API / Sidebar)
+- **API bidirecional** com streaming: widget ↔ IA via `appBus.emit('ai:emit')`
+  e `appBus.on('ai:command:<id>', ...)`
