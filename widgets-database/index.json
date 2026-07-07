@@ -236,6 +236,92 @@
       ]
     },
     {
+      "id": "business/corp-csv",
+      "title": "CSV Corporativo",
+      "category": "business",
+      "category_label": "Business",
+      "description": "Fonte de dados corporativos via CSV multi-se\u00e7\u00e3o com emiss\u00e3o appBus",
+      "file": "business/corp-csv.jsx",
+      "size_bytes": 6272,
+      "tags": [
+        "business",
+        "csv",
+        "corp"
+      ]
+    },
+    {
+      "id": "business/corp-dados",
+      "title": "Dados Corporativos",
+      "category": "business",
+      "category_label": "Business",
+      "description": "Fonte de dados corporativos via JSON com emiss\u00e3o appBus",
+      "file": "business/corp-dados.jsx",
+      "size_bytes": 5030,
+      "tags": [
+        "business",
+        "dados",
+        "json",
+        "corp"
+      ]
+    },
+    {
+      "id": "business/corp-fluxo-caixa",
+      "title": "Fluxo de Caixa",
+      "category": "business",
+      "category_label": "Business",
+      "description": "Gr\u00e1fico de fluxo de caixa com entradas, sa\u00eddas e saldo",
+      "file": "business/corp-fluxo-caixa.jsx",
+      "size_bytes": 4668,
+      "tags": [
+        "business",
+        "fluxo",
+        "caixa",
+        "cash-flow"
+      ]
+    },
+    {
+      "id": "business/corp-metas",
+      "title": "Metas",
+      "category": "business",
+      "category_label": "Business",
+      "description": "Acompanhamento de metas com barras de progresso e indicadores",
+      "file": "business/corp-metas.jsx",
+      "size_bytes": 2930,
+      "tags": [
+        "business",
+        "metas",
+        "goals"
+      ]
+    },
+    {
+      "id": "business/corp-precos",
+      "title": "Monitor de Pre\u00e7os",
+      "category": "business",
+      "category_label": "Business",
+      "description": "Tabela de pre\u00e7os com varia\u00e7\u00e3o e sparklines de tend\u00eancia",
+      "file": "business/corp-precos.jsx",
+      "size_bytes": 5065,
+      "tags": [
+        "business",
+        "precos",
+        "prices"
+      ]
+    },
+    {
+      "id": "business/corp-vendas",
+      "title": "Vendas",
+      "category": "business",
+      "category_label": "Business",
+      "description": "Dashboard de vendas com gr\u00e1fico de barras e KPIs",
+      "file": "business/corp-vendas.jsx",
+      "size_bytes": 5035,
+      "tags": [
+        "business",
+        "vendas",
+        "sales"
+      ]
+    },
+    {
       "id": "data-viz/bar-chart",
       "title": "Bar Chart",
       "category": "data-viz",
@@ -1623,5 +1709,5 @@
             ]
         }
     ],
-    "total": 124
+    "total": 130
 }
