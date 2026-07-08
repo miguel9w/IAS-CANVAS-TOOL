@@ -5,10 +5,10 @@
 // delegado ao WidgetWrapper, que compila e renderiza o widget dinâmico.
 // -----------------------------------------------------------------------
 
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import WidgetWrapper from './WidgetWrapper';
 
-export default function FloatingWindow({ win, appBus, isActive, decorationsVisible = true, onFocus, onClose, onDrag, onResize }) {
+export default function FloatingWindow({ win, appBus, isActive, decorationsVisible = true, isFullscreen = false, onFullscreen, onFocus, onClose, onDrag, onResize }) {
   const dragState = useRef(null);
   const resizeState = useRef(null);
 
@@ -67,7 +67,42 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
     [win.id, win.width, win.height, onResize, onFocus]
   );
 
-  return (
+  // --- ESC listener when fullscreen ---------------------------------------
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handleKey = (e) => { if (e.key === 'Escape') onFullscreen(win.id); };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isFullscreen, onFullscreen, win.id]);
+
+  return isFullscreen ? (
+    <div
+      className="fixed flex flex-col overflow-hidden"
+      style={{ inset: 0, zIndex: 9999, background: '#0B1120' }}
+    >
+      <div className="flex items-center justify-between px-3 py-2 bg-[#0E1420] border-b border-slate-800">
+        <span className="text-xs font-mono text-slate-200 truncate">{win.title}</span>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => onFullscreen(win.id)}
+            className="text-slate-500 hover:text-slate-200 text-sm leading-none px-1 shrink-0"
+            title="Restaurar"
+          >
+            ⛶
+          </button>
+          <button
+            onClick={() => onClose(win.id)}
+            className="text-slate-500 hover:text-red-400 text-sm leading-none px-1 shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+      <div className="flex-1 min-h-0 bg-[#0B0F19]">
+        <WidgetWrapper sourceCode={win.source_code} appBus={appBus} windowId={win.id} />
+      </div>
+    </div>
+  ) : (
     <div
       className={`absolute flex flex-col rounded-lg overflow-hidden shadow-2xl border transition-shadow duration-150 ${
         isActive ? 'border-teal-400/60 shadow-teal-500/20' : 'border-slate-700/80 shadow-black/40'
@@ -108,6 +143,13 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
               </svg>
             </button>
             <button
+              onClick={() => onFullscreen(win.id)}
+              className="text-slate-500 hover:text-teal-400 text-sm leading-none px-1 shrink-0"
+              title={isFullscreen ? 'Restaurar' : 'Tela cheia'}
+            >
+              {isFullscreen ? '⛶' : '⛶'}
+            </button>
+            <button
               onClick={() => onClose(win.id)}
               className="text-slate-500 hover:text-red-400 text-sm leading-none px-1 shrink-0"
               aria-label="Fechar widget"
@@ -130,5 +172,4 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
         <WidgetWrapper sourceCode={win.source_code} appBus={appBus} windowId={win.id} />
       </div>
     </div>
-  );
-}
+  )}
