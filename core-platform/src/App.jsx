@@ -200,6 +200,7 @@ export default function App() {
   const [decorationsVisible, setDecorationsVisible] = useState(true);
   const [presentationMode, setPresentationMode] = useState(false);
   const [gridSize, setGridSize] = useState(0);
+  const [fullscreenId, setFullscreenId] = useState(null);
 
   // Pan (deslocamento) do canvas infinito.
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -330,6 +331,10 @@ export default function App() {
   }, []);
 
   // --- Manipulação de janelas ----------------------------------------------
+  const handleFullscreen = useCallback((id) => {
+    setFullscreenId((prev) => (prev === id ? null : id));
+  }, []);
+
   const focusWindow = useCallback((id) => {
     setActiveId(id);
     setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, zIndex: ++zIndexCounter } : w)));
@@ -392,7 +397,7 @@ export default function App() {
     }
 
     return (<>
-      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} />}
+      {decorationsVisible && !fullscreenId && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} />}
     <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
       {/* Grade de fundo */}
       <div
@@ -424,52 +429,59 @@ export default function App() {
             Nenhum widget ativo. Aguardando comandos do OpenCode...
           </div>
         )}
-        {windows.map((win) => (
-          <FloatingWindow
-            key={win.id}
-            win={win}
-            appBus={appBus}
-            isActive={activeId === win.id}
-            decorationsVisible={decorationsVisible}
-            onFocus={focusWindow}
-            onClose={closeWindow}
-            onDrag={dragWindow}
-            onResize={resizeWindow}
-          />
-        ))}
+        {windows.map((win) => {
+          if (fullscreenId && win.id !== fullscreenId) return null;
+          return (
+            <FloatingWindow
+              key={win.id}
+              win={win}
+              appBus={appBus}
+              isActive={activeId === win.id}
+              decorationsVisible={decorationsVisible}
+              onFocus={focusWindow}
+              onClose={closeWindow}
+              onDrag={dragWindow}
+              onResize={resizeWindow}
+              isFullscreen={fullscreenId === win.id}
+              onFullscreen={handleFullscreen}
+            />
+          );
+        })}
       </div>
 
-      {windows.length > 0 && decorationsVisible && (
+      {!fullscreenId && windows.length > 0 && decorationsVisible && (
         <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 text-slate-600 text-xs font-mono bg-[#121826]/60 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur pointer-events-none">
           Arraste com o botão do meio para pan · Feche widgets com o ×
         </div>
       )}
-      <div className="fixed bottom-4 left-4 z-50 flex gap-2">
-        <button
-          onClick={() => setDecorationsVisible((v) => !v)}
-          className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
-          title={decorationsVisible ? 'Ocultar decorações' : 'Mostrar decorações'}
-        >
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            {decorationsVisible
-              ? <><path d="M4 20h16" /><path d="M4 4h16" /><path d="M4 8h16" /><path d="M4 12h16" /><path d="M4 16h16" /></>
-              : <><path d="M6 4h12v16H6z" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h8" /></>
-            }
-          </svg>
-          Decorações
-        </button>
-        <button
-          onClick={() => setPresentationMode(true)}
-          disabled={windows.length === 0}
-          className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur transition-all"
-          title="Modo apresentação"
-        >
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8" /><path d="M12 17v4" />
-          </svg>
-          Apresentar
-        </button>
-      </div>
+      {!fullscreenId && (
+        <div className="fixed bottom-4 left-4 z-50 flex gap-2">
+          <button
+            onClick={() => setDecorationsVisible((v) => !v)}
+            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
+            title={decorationsVisible ? 'Ocultar decorações' : 'Mostrar decorações'}
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {decorationsVisible
+                ? <><path d="M4 20h16" /><path d="M4 4h16" /><path d="M4 8h16" /><path d="M4 12h16" /><path d="M4 16h16" /></>
+                : <><path d="M6 4h12v16H6z" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h8" /></>
+              }
+            </svg>
+            Decorações
+          </button>
+          <button
+            onClick={() => setPresentationMode(true)}
+            disabled={windows.length === 0}
+            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur transition-all"
+            title="Modo apresentação"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8" /><path d="M12 17v4" />
+            </svg>
+            Apresentar
+          </button>
+        </div>
+      )}
     </div>
   </>);
 }
