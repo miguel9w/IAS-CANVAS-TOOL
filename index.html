@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IAS Canvas Tool - Workspace Dinâmico com Canvas Infinito</title>
+  <meta name="description" content="Plataforma de canvas infinito com janelas flutuantes, onde widgets React são gerados dinamicamente por IA e renderizados no navegador em tempo real." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #0B1120;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* Hero */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(rgba(148,163,184,0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.5;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 720px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #e2e8f0, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #94a3b8;
+      margin-bottom: 36px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 15px;
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
+    }
+    .btn-primary {
+      background: #6366f1; color: #fff;
+      box-shadow: 0 0 20px rgba(99,102,241,0.3);
+    }
+    .btn-primary:hover { background: #5457e5; transform: translateY(-1px); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06); color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    .section-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #6366f1; margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700; margin-bottom: 48px;
+    }
+
+    /* Architecture */
+    .arch-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px; margin-bottom: 40px;
+    }
+    @media (max-width: 768px) { .arch-grid { grid-template-columns: 1fr; } }
+    .arch-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .arch-card:hover { border-color: rgba(99,102,241,0.3); }
+    .arch-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .arch-card h3 { font-size: 16px; margin-bottom: 8px; }
+    .arch-card p { font-size: 14px; color: #94a3b8; }
+    .arch-card .tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 999px; margin-top: 12px;
+    }
+    .tag-core { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+    .tag-opencode { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+    .tag-pi { background: rgba(251,191,36,0.15); color: #fcd34d; }
+    .tag-standalone { background: rgba(248,113,113,0.15); color: #fca5a5; }
+
+    /* Flow diagram */
+    .flow-diagram {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 32px 24px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px; line-height: 1.8; overflow-x: auto;
+      color: #94a3b8;
+    }
+    .flow-diagram .comment { color: #64748b; font-style: italic; }
+    .flow-diagram .core { color: #a5b4fc; }
+    .flow-diagram .arrow { color: #475569; }
+    .flow-diagram .plugin { color: #6ee7b7; }
+
+    /* Features */
+    .features-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; } }
+    .feature-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 24px;
+    }
+    .feature-card h3 { font-size: 15px; margin-bottom: 6px; }
+    .feature-card p { font-size: 14px; color: #94a3b8; }
+
+    /* Install code block */
+    .code-block {
+      background: #1a1f2e;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 20px 24px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 14px; line-height: 1.7; overflow-x: auto;
+      color: #e2e8f0; margin-bottom: 16px;
+    }
+    .code-block .comment { color: #64748b; }
+    .code-block .keyword { color: #818cf8; }
+    .code-block .string { color: #6ee7b7; }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #64748b; font-size: 14px;
+    }
+    footer a { color: #818cf8; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Copy button */
+    .code-wrapper { position: relative; }
+    .copy-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+      color: #94a3b8; padding: 4px 12px; border-radius: 6px;
+      font-size: 12px; cursor: pointer; font-family: inherit;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+    .copy-btn.copied { background: rgba(52,211,153,0.15); color: #6ee7b7; border-color: rgba(52,211,153,0.3); }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">IA + Canvas Infinito</div>
+    <h1>Workspace Dinâmico<br/>com Canvas Infinito</h1>
+    <p>
+      Widgets React gerados por IA em tempo real, renderizados no navegador
+      sem build. Conecte seu agente de código favorito e veja as janelas
+      flutuantes ganharem vida.
+    </p>
+    <div class="hero-buttons">
+      <a href="#instalacao" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 17 12 23 18 17"/><polyline points="6 4 6 12 12 18 18 12 18 4"/></svg>
+        Instalar
+      </a>
+      <a href="/IAS-CANVAS-TOOL/canvas/?demo" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+        Demo
+      </a>
+      <a href="https://github.com/miguel9w/IAS-CANVAS-TOOL" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="arquitetura">
+  <div class="container">
+    <div class="section-label">Arquitetura</div>
+    <h2>Como funciona</h2>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="icon">🧩</div>
+        <h3>Core Platform</h3>
+        <p>React + Vite. Gerencia o estado das janelas, o canvas pannable e a compilação em runtime do JSX via Babel Standalone.</p>
+        <span class="tag tag-core">core-platform/</span>
+      </div>
+      <div class="arch-card">
+        <div class="icon">⚡</div>
+        <h3>Plugin OpenCode</h3>
+        <p>Plugin real que registra a ferramenta <code>create_widget</code>. Usa Bun.serve nativo — sem dependências.</p>
+        <span class="tag tag-opencode">.opencode/plugins/</span>
+      </div>
+      <div class="arch-card">
+        <div class="icon">🥧</div>
+        <h3>Pacote Pi</h3>
+        <p>Extensão TypeScript para o Pi Coding Agent. Mesma ferramenta <code>create_widget</code>, via Node + ws.</p>
+        <span class="tag tag-pi">pi-canvas-package/</span>
+      </div>
+    </div>
+
+    <p class="flow-diagram">
+      <span class="comment">// Fluxo de dados: IA → WebSocket → Canvas</span><br/><br/>
+      <span class="core">[ Core React ]</span> <span class="arrow">⟵ ws://localhost:8080 ⟶</span> <span class="plugin">[ Plugin OpenCode ]</span><br/>
+      <span class="arrow">                           ⟵</span> <span class="plugin">[ Plugin Pi ]</span><br/>
+      <span class="arrow">                           ⟵</span> <span class="comment">[ Standalone (teste manual) ]</span><br/><br/>
+      <span class="comment">// A IA chama create_widget → o plugin roteia via WebSocket</span><br/>
+      <span class="comment">// → o Core compila o JSX com Babel Standalone → renderiza em tempo real</span>
+    </p>
+  </div>
+</section>
+
+<section id="instalacao">
+  <div class="container">
+    <div class="section-label">Instalação</div>
+    <h2>Rode em segundos</h2>
+
+    <p style="color:#94a3b8;margin-bottom:20px;">
+      Clone o repositório e execute o instalador correspondente ao seu sistema.
+    </p>
+
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      <div class="code-block">
+        <span class="comment"># Linux / macOS</span><br/>
+        git clone https://github.com/miguel9w/IAS-CANVAS-TOOL.git<br/>
+        <span class="keyword">cd</span> IAS-CANVAS-TOOL<br/>
+        chmod +x install.sh &amp;&amp; ./install.sh
+      </div>
+    </div>
+
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      <div class="code-block">
+        <span class="comment"># Windows (PowerShell)</span><br/>
+        git clone https://github.com/miguel9w/IAS-CANVAS-TOOL.git<br/>
+        <span class="keyword">cd</span> IAS-CANVAS-TOOL<br/>
+        powershell -ExecutionPolicy Bypass -File .\install.ps1
+      </div>
+    </div>
+
+    <p style="color:#94a3b8;margin:28px 0 12px;">
+      Depois de instalar, inicie o Core:
+    </p>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      <div class="code-block">
+        <span class="keyword">cd</span> core-platform &amp;&amp; npm run dev
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Funcionalidades</div>
+    <h2>O que você pode fazer</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Widgets em tempo real</h3>
+        <p>A IA gera componentes React com JSX que são compilados e renderizados no navegador instantaneamente — sem rebuild.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Canvas infinito</h3>
+        <p>Pan com o botão do meio do mouse. As janelas flutuam em coordenadas absolutas dentro de uma camada sem limites.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Múltiplos agentes</h3>
+        <p>Suporte nativo a OpenCode e Pi Coding Agent. Cada um com seu plugin específico, mesma API de widgets.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Janelas flutuantes</h3>
+        <p>Arraste, redimensione e feche janelas como em um desktop. Z-index dinâmico — a última interagida fica por cima.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Babel Standalone</h3>
+        <p>JSX é compilado no próprio navegador. Widgets podem usar <code>import</code> do React e hooks como <code>useState</code>.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Reconexão automática</h3>
+        <p>O WebSocket reconecta automaticamente se o plugin cair. Status visível no canto superior direito do canvas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Exemplo</div>
+    <h2>Widget de contador</h2>
+
+    <p style="color:#94a3b8;margin-bottom:20px;">
+      Peça à IA algo como <em>"crie um widget de contador no canvas"</em>.
+      O código abaixo é o que o widget recebe como <code>source_code</code>:
+    </p>
+
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      <div class="code-block">
+        function <span style="color:#818cf8">Widget</span>({ appBus }) {<br/>
+        &nbsp;&nbsp;const [count, setCount] = React.useState(0);<br/>
+        &nbsp;&nbsp;return (<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color:#f472b6">div</span> style={{ padding: 24, textAlign: <span class="string">'center'</span> }}&gt;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color:#f472b6">h2</span>&gt;Contador: {count}&lt;/<span style="color:#f472b6">h2</span>&gt;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color:#f472b6">button</span> onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+&lt;/<span style="color:#f472b6">button</span>&gt;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color:#f472b6">button</span> onClick={() =&gt; setCount(c =&gt; c - 1)}&gt;-&lt;/<span style="color:#f472b6">button</span>&gt;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color:#f472b6">div</span>&gt;<br/>
+        &nbsp;&nbsp;);<br/>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>GNU General Public License v3.0 &middot; <a href="https://github.com/miguel9w/IAS-CANVAS-TOOL">miguel9w/IAS-CANVAS-TOOL</a></p>
+  </div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const block = btn.parentElement.querySelector('.code-block');
+  const text = block.textContent.replace(/\s{2,}/g, '\n').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
