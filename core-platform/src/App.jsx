@@ -183,7 +183,6 @@ export default function App() {
   const [decorationsVisible, setDecorationsVisible] = useState(true);
   const [presentationMode, setPresentationMode] = useState(false);
   const [gridSize, setGridSize] = useState(0);
-  const [showSidebar, setShowSidebar] = useState(true);
 
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const panState = useRef(null);
@@ -367,21 +366,7 @@ export default function App() {
     }
 
     return (<>
-      {decorationsVisible && <>
-        <button
-          onClick={() => setShowSidebar((v) => !v)}
-          className={`fixed z-50 flex items-center justify-center w-9 h-9 rounded-xl border backdrop-blur transition-all duration-200 hover:bg-slate-700/80 ${showSidebar ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          style={{ top: '12px', left: '12px', background: 'rgba(18,24,38,0.95)', borderColor: 'rgba(71,85,105,0.6)' }}
-          title="Abrir menu"
-        >
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-        </button>
-        <div className={`fixed top-3 left-3 z-50 transition-all duration-300 ease-in-out ${showSidebar ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 pointer-events-none'}`}>
-          <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} onClose={() => setShowSidebar(false)} />
-        </div>
-      </>}
+      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} />}
     <div className="relative w-screen h-screen overflow-hidden" style={{ background: '#0B1120', color: '#e2e8f0' }}>
       <div
         className="absolute inset-0 pointer-events-none"

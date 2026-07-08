@@ -46,7 +46,7 @@ var ICONS = {
   ),
 };
 
-export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize, onClose }) {
+export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize }) {
   const [expanded, setExpanded] = useState(null);
   const [catalog, setCatalog] = useState(null);
   const [catalogLoading, setCatalogLoading] = useState(false);
@@ -143,15 +143,10 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
                 <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
               </svg>
             </div>
-            <div className="flex-1">
+            <div>
               <h1 className="text-sm font-semibold text-slate-200">Canvas Infinito</h1>
               <p className="text-[10px] text-slate-500">Plataforma de Widgets</p>
             </div>
-            <button onClick={onClose} className="text-slate-500 hover:text-slate-200 text-sm leading-none p-1" title="Fechar menu">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
           </div>
 
           <div className="space-y-1">
