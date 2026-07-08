@@ -63,7 +63,7 @@ const ICONS = {
   ),
 };
 
-export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize }) {
+export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize, onExportLayout, onImportLayout }) {
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [customCode, setCustomCode] = useState('');
@@ -71,6 +71,7 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
   const [catalogLoading, setCatalogLoading] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(null);
   const fileInputRef = useRef(null);
+  const importInputRef = useRef(null);
 
   const toggleSection = useCallback((section) => {
     setExpanded((prev) => (prev === section ? null : section));
@@ -128,6 +129,13 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
     reader.readAsText(file);
     e.target.value = '';
   }, []);
+
+  const handleImportFile = useCallback((e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    onImportLayout(file);
+    e.target.value = '';
+  }, [onImportLayout]);
 
   const handleLoadDemo = useCallback(() => {
     demoWidgets.forEach((w) => {
@@ -315,6 +323,27 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
                   <option value={80}>80px</option>
                 </select>
               </label>
+              <div className="pt-2 border-t border-slate-700/50 space-y-2">
+                <button
+                  onClick={onExportLayout}
+                  className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-slate-300 bg-slate-800/50 rounded-lg hover:bg-slate-700/50 transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Exportar Layout
+                </button>
+                <button
+                  onClick={() => importInputRef.current?.click()}
+                  className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-slate-300 bg-slate-800/50 rounded-lg hover:bg-slate-700/50 transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                  Importar Layout
+                </button>
+                <input ref={importInputRef} type="file" accept=".json" onChange={handleImportFile} className="hidden" />
+              </div>
             </div>
           </SidebarItem>
         </div>

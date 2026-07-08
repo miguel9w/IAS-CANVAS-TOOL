@@ -335,6 +335,57 @@ export default function App() {
     setFullscreenId((prev) => (prev === id ? null : id));
   }, []);
 
+  const handleExportLayout = useCallback(() => {
+    const layout = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      widgets: windows.map((w) => ({
+        widget_id: w.id,
+        title: w.title,
+        width: w.width,
+        height: w.height,
+        x: w.x,
+        y: w.y,
+        source_code: w.source_code,
+      })),
+    };
+    const json = JSON.stringify(layout, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'layout-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [windows]);
+
+  const handleImportLayout = useCallback((file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const layout = JSON.parse(e.target.result);
+        if (!layout.widgets || !Array.isArray(layout.widgets)) {
+          console.error('[App] Layout inválido: sem widgets');
+          return;
+        }
+        layout.widgets.forEach((w) => {
+          createWindowFromPayload({
+            widget_id: w.widget_id,
+            title: w.title,
+            width: w.width,
+            height: w.height,
+            x: w.x,
+            y: w.y,
+            source_code: w.source_code,
+          });
+        });
+      } catch (err) {
+        console.error('[App] Erro ao importar layout:', err);
+      }
+    };
+    reader.readAsText(file);
+  }, [createWindowFromPayload]);
+
   const focusWindow = useCallback((id) => {
     setActiveId(id);
     setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, zIndex: ++zIndexCounter } : w)));
@@ -398,7 +449,7 @@ export default function App() {
     }
 
     return (<>
-      {decorationsVisible && !fullscreenId && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} />}
+      {decorationsVisible && !fullscreenId && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} onExportLayout={handleExportLayout} onImportLayout={handleImportLayout} />}
     <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
       {/* Grade de fundo */}
       <div
