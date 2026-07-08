@@ -69,22 +69,23 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
 
   return (
     <div
-      className="absolute flex flex-col rounded-lg overflow-hidden shadow-2xl border transition-shadow duration-150"
-      style={{ left: win.x, top: win.y, width: win.width, height: win.height, zIndex: win.zIndex, background: 'var(--bg-surface)', borderColor: isActive ? 'color-mix(in srgb, var(--accent) 60%, transparent)' : 'color-mix(in srgb, var(--border) 80%, transparent)' }}
+      className={`absolute flex flex-col rounded-lg overflow-hidden shadow-2xl border transition-shadow duration-150 ${
+        isActive ? 'border-teal-400/60 shadow-teal-500/20' : 'border-slate-700/80 shadow-black/40'
+      }`}
+      style={{ left: win.x, top: win.y, width: win.width, height: win.height, zIndex: win.zIndex, background: '#121826' }}
       onMouseDown={() => onFocus(win.id)}
     >
       {decorationsVisible && (<>
         {/* Barra de título — arrastável */}
         <div
           onMouseDown={handleTitleMouseDown}
-          className="flex items-center justify-between px-3 py-2 cursor-move select-none border-b"
-          style={{ background: 'var(--bg-elevated)', borderColor: 'var(--border)' }}
+          className="flex items-center justify-between px-3 py-2 bg-[#0E1420] cursor-move select-none border-b border-slate-800"
         >
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded shrink-0" style={{ color: 'color-mix(in srgb, var(--warning) 90%, transparent)', background: 'color-mix(in srgb, var(--warning) 10%, transparent)' }}>
+            <span className="text-[10px] font-mono text-amber-400/90 bg-amber-400/10 px-1.5 py-0.5 rounded shrink-0">
               {String(win.id).slice(0, 8)}
             </span>
-            <span className="text-xs font-mono truncate" style={{ color: 'var(--text-primary)' }}>{win.title}</span>
+            <span className="text-xs font-mono text-slate-200 truncate">{win.title}</span>
           </div>
           <div className="flex items-center gap-1">
             <button
@@ -97,10 +98,7 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
                 a.click();
                 URL.revokeObjectURL(url);
               }}
-              className="text-sm leading-none px-1 shrink-0"
-              style={{ color: 'var(--text-muted)' }}
-              onMouseEnter={function(e){e.target.style.color='var(--accent-text)';}}
-              onMouseLeave={function(e){e.target.style.color='var(--text-muted)';}}
+              className="text-slate-500 hover:text-teal-400 text-sm leading-none px-1 shrink-0"
               title="Salvar widget"
             >
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -111,10 +109,7 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
             </button>
             <button
               onClick={() => onClose(win.id)}
-              className="text-sm leading-none px-1 shrink-0"
-              style={{ color: 'var(--text-muted)' }}
-              onMouseEnter={function(e){e.target.style.color='var(--danger)';}}
-              onMouseLeave={function(e){e.target.style.color='var(--text-muted)';}}
+              className="text-slate-500 hover:text-red-400 text-sm leading-none px-1 shrink-0"
               aria-label="Fechar widget"
             >
               ✕
@@ -126,12 +121,12 @@ export default function FloatingWindow({ win, appBus, isActive, decorationsVisib
         <div
           onMouseDown={handleResizeMouseDown}
           className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize"
-          style={{ background: 'linear-gradient(135deg, transparent 50%, color-mix(in srgb, var(--accent) 50%, transparent) 50%)' }}
+          style={{ background: 'linear-gradient(135deg, transparent 50%, rgba(45,212,191,0.5) 50%)' }}
         />
       </>)}
 
       {/* Conteúdo dinâmico do widget */}
-      <div className="flex-1 min-h-0" style={{ background: 'color-mix(in srgb, var(--bg-canvas) 70%, black)' }}>
+      <div className="flex-1 min-h-0 bg-[#0B0F19]">
         <WidgetWrapper sourceCode={win.source_code} appBus={appBus} windowId={win.id} />
       </div>
     </div>

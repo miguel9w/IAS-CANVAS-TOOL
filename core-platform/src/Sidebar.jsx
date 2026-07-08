@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import themes from './themes';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 
@@ -69,7 +68,7 @@ const ICONS = {
   ),
 };
 
-export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize, theme, setTheme }) {
+export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize }) {
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [customCode, setCustomCode] = useState('');
@@ -156,11 +155,8 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-3 left-3 z-50 flex items-center justify-center w-9 h-9 rounded-lg backdrop-blur transition-all"
+        className="fixed top-3 left-3 z-50 flex items-center justify-center w-9 h-9 rounded-lg bg-[#121826]/80 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
         aria-label="Abrir menu"
-        style={{ color: 'var(--text-secondary)', background: 'color-mix(in srgb, var(--bg-surface) 80%, transparent)', border: '1px solid var(--border)' }}
-        onMouseEnter={function(e){e.target.style.color='var(--text-primary)';e.target.style.background='color-mix(in srgb, var(--bg-elevated) 80%, transparent)';}}
-        onMouseLeave={function(e){e.target.style.color='var(--text-secondary)';e.target.style.background='color-mix(in srgb, var(--bg-surface) 80%, transparent)';}}
       >
         {ICONS.hamburger}
       </button>
@@ -173,20 +169,16 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
       )}
 
       <div
-        className={`fixed top-0 left-0 z-50 h-full w-80 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 z-50 h-full w-80 bg-[#121826] border-r border-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ background: 'var(--bg-surface)', borderRight: '1px solid var(--border)' }}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--border)' }}>
-          <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Canvas</span>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
+          <span className="text-sm font-semibold text-slate-200">Canvas</span>
           <button
             onClick={() => setIsOpen(false)}
-            className="transition-colors"
+            className="text-slate-500 hover:text-slate-200 transition-colors"
             aria-label="Fechar menu"
-            style={{ color: 'var(--text-muted)' }}
-            onMouseEnter={function(e){e.target.style.color='var(--text-primary)';}}
-            onMouseLeave={function(e){e.target.style.color='var(--text-muted)';}}
           >
             {ICONS.close}
           </button>
@@ -201,15 +193,12 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
             chevron={ICONS.chevron}
           >
             <div className="pt-2 space-y-2">
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Carrega os 6 widgets de demonstração no canvas.
               </p>
               <button
                 onClick={handleLoadDemo}
-                className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium rounded-lg transition-colors"
-                style={{ color: 'var(--accent-text)', background: 'color-mix(in srgb, var(--accent) 15%, transparent)' }}
-                onMouseEnter={function(e){e.target.style.background='color-mix(in srgb, var(--accent) 25%, transparent)';}}
-                onMouseLeave={function(e){e.target.style.background='color-mix(in srgb, var(--accent) 15%, transparent)';}}
+                className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-teal-400 bg-teal-400/10 rounded-lg hover:bg-teal-400/20 transition-colors"
               >
                 {ICONS.play}
                 Carregar Demo
@@ -230,19 +219,13 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
                 onChange={(e) => setCustomCode(e.target.value)}
                 placeholder={`function Widget({ appBus }) {\n  return <div>Olá, canvas!</div>;\n}`}
                 rows={6}
-                className="w-full text-xs font-mono border rounded-lg p-3 resize-none focus:outline-none"
-                style={{ background: 'var(--bg-input)', color: 'var(--text-primary)', borderColor: 'var(--border-light)' }}
-                onFocus={function(e){e.target.style.borderColor='var(--accent)';}}
-                onBlur={function(e){e.target.style.borderColor='var(--border-light)';}}
+                className="w-full bg-[#0B1120] text-slate-200 text-xs font-mono border border-slate-700 rounded-lg p-3 resize-none placeholder:text-slate-600 focus:outline-none focus:border-teal-500/50"
                 spellCheck={false}
               />
               <div className="flex gap-2">
                 <button
                   onClick={handleFileOpen}
-                  className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg transition-colors"
-                  style={{ color: 'var(--text-secondary)', background: 'color-mix(in srgb, var(--bg-elevated) 50%, transparent)' }}
-                  onMouseEnter={function(e){e.target.style.background='color-mix(in srgb, var(--bg-elevated) 70%, transparent)';}}
-                  onMouseLeave={function(e){e.target.style.background='color-mix(in srgb, var(--bg-elevated) 50%, transparent)';}}
+                  className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-300 bg-slate-800/50 rounded-lg hover:bg-slate-700/50 transition-colors"
                 >
                   {ICONS.folder}
                   Abrir arquivo
@@ -250,10 +233,7 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
                 <button
                   onClick={handleCreateCustom}
                   disabled={!customCode.trim()}
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                  style={{ color: 'var(--accent-text)', background: 'color-mix(in srgb, var(--accent) 15%, transparent)' }}
-                  onMouseEnter={function(e){if(!e.target.disabled)e.target.style.background='color-mix(in srgb, var(--accent) 25%, transparent)';}}
-                  onMouseLeave={function(e){e.target.style.background='color-mix(in srgb, var(--accent) 15%, transparent)';}}
+                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-teal-400 bg-teal-400/10 rounded-lg hover:bg-teal-400/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 >
                   {ICONS.play}
                   Criar Widget
@@ -277,16 +257,13 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
             chevron={ICONS.chevron}
           >
             <div className="pt-2 space-y-2">
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Acesse o repositório no GitHub para explorar widgets públicos,
                 exemplos e contribuir com a comunidade.
               </p>
               <button
                 onClick={handleOpenLibrary}
-                className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium rounded-lg transition-colors"
-                style={{ color: 'var(--text-primary)', background: 'color-mix(in srgb, var(--bg-elevated) 50%, transparent)' }}
-                onMouseEnter={function(e){e.target.style.background='color-mix(in srgb, var(--bg-elevated) 70%, transparent)';}}
-                onMouseLeave={function(e){e.target.style.background='color-mix(in srgb, var(--bg-elevated) 50%, transparent)';}}
+                className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-slate-200 bg-slate-800/50 rounded-lg hover:bg-slate-700/50 transition-colors"
               >
                 {ICONS.external}
                 Abrir repositório
@@ -304,9 +281,9 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
           >
             <div className="pt-2 space-y-2">
               {catalogLoading ? (
-                <p className="text-xs animate-pulse" style={{ color: 'var(--text-muted)' }}>Carregando catálogo...</p>
+                <p className="text-xs text-slate-500 animate-pulse">Carregando catálogo...</p>
               ) : !catalog ? (
-                <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Catálogo indisponível.</p>
+                <p className="text-xs text-slate-500">Catálogo indisponível.</p>
               ) : (
                 <CategoriesList
                   widgets={catalog.widgets}
@@ -326,19 +303,18 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
             onClick={() => toggleSection('settings')}
             chevron={ICONS.chevron}
           >
-            <div className="pt-2 space-y-3" style={{ color: 'var(--text-secondary)' }}>
-              <label className="flex items-center justify-between text-xs">
+            <div className="pt-2 space-y-3">
+              <label className="flex items-center justify-between text-xs text-slate-400">
                 <span>Snap to grid</span>
                 <input type="checkbox" checked={gridSize > 0}
                   onChange={function(e){setGridSize(e.target.checked ? 20 : 0);}}
-                  className="accent-[var(--accent)]" />
+                  className="accent-teal-400" />
               </label>
               {gridSize > 0 && (
-                <label className="flex items-center justify-between text-xs">
+                <label className="flex items-center justify-between text-xs text-slate-400">
                   <span>Tamanho da grade</span>
                   <select value={gridSize} onChange={function(e){setGridSize(Number(e.target.value));}}
-                    className="text-xs border rounded px-2 py-1"
-                    style={{ background: 'var(--bg-input)', color: 'var(--text-primary)', borderColor: 'var(--border-light)' }}>
+                    className="bg-[#0B1120] text-slate-200 text-xs border border-slate-700 rounded px-2 py-1">
                     <option value={10}>10px</option>
                     <option value={20}>20px</option>
                     <option value={40}>40px</option>
@@ -346,16 +322,6 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
                   </select>
                 </label>
               )}
-              <div className="pt-2 border-t" style={{ borderColor: 'var(--border)' }}>
-                <label className="flex items-center justify-between text-xs">
-                  <span>Tema</span>
-                  <select value={theme} onChange={function(e){setTheme(e.target.value);}}
-                    className="text-xs border rounded px-2 py-1"
-                    style={{ background: 'var(--bg-input)', color: 'var(--text-primary)', borderColor: 'var(--border-light)' }}>
-                    {Object.keys(themes).map(function(k){return React.createElement('option',{key:k,value:k},themes[k].name);})}
-                  </select>
-                </label>
-              </div>
             </div>
           </SidebarItem>
         </div>
@@ -365,20 +331,16 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, se
 }
 
 function SidebarItem({ icon, label, children, expanded, onClick, chevron, badge }) {
-  var [hovered, setHovered] = React.useState(false);
   return (
     <div>
       <button
         onClick={onClick}
-        className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm transition-colors"
-        style={{ color: hovered ? 'var(--text-primary)' : 'var(--text-secondary)', background: hovered ? 'rgba(255,255,255,0.04)' : 'transparent' }}
-        onMouseEnter={function(){setHovered(true);}}
-        onMouseLeave={function(){setHovered(false);}}
+        className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm text-slate-300 hover:bg-white/[0.04] hover:text-slate-100 transition-colors"
       >
-        <span className="shrink-0" style={{ color: 'var(--text-muted)' }}>{icon}</span>
+        <span className="shrink-0 text-slate-500">{icon}</span>
         <span>{label}</span>
         {badge && (
-          <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded" style={{ color: 'var(--accent)', background: 'color-mix(in srgb, var(--accent) 10%, transparent)' }}>{badge}</span>
+          <span className="px-1.5 py-0.5 text-[10px] font-semibold text-teal-400 bg-teal-400/10 rounded">{badge}</span>
         )}
         <span className={`ml-auto transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`}>
           {chevron}
@@ -400,33 +362,26 @@ function CategoriesList({ widgets, categoryOpen, onToggleCat, onLoad, ICONS }) {
       {Object.keys(cats).sort().map((cat) => {
         const items = cats[cat];
         const isOpen = categoryOpen === cat;
-        var [catHovered, setCatHovered] = React.useState(false);
         return (
           <div key={cat}>
             <button
               onClick={() => onToggleCat(cat)}
-              className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs transition-colors"
-              style={{ color: catHovered ? 'var(--text-primary)' : 'var(--text-muted)', background: catHovered ? 'rgba(255,255,255,0.03)' : 'transparent' }}
-              onMouseEnter={function(){setCatHovered(true);}}
-              onMouseLeave={function(){setCatHovered(false);}}
+              className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs text-slate-400 hover:text-slate-200 hover:bg-white/[0.03] transition-colors"
             >
               <span className={`transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}>
                 {ICONS.chevron}
               </span>
               <span className="capitalize">{cat.replace('-', ' ')}</span>
-              <span className="ml-auto text-[10px]" style={{ color: 'var(--text-muted)' }}>{items.length}</span>
+              <span className="ml-auto text-[10px] text-slate-600">{items.length}</span>
             </button>
             {isOpen && (
-              <div className="ml-3 space-y-0.5 pl-2" style={{ borderLeft: '1px solid color-mix(in srgb, var(--border) 50%, transparent)' }}>
+              <div className="ml-3 space-y-0.5 border-l border-slate-700/50 pl-2">
                 {items.map((w) => (
                   <div key={w.id} className="flex items-center gap-2 py-1">
-                    <span className="text-xs truncate flex-1" style={{ color: 'var(--text-muted)' }}>{w.title}</span>
+                    <span className="text-xs text-slate-500 truncate flex-1">{w.title}</span>
                     <button
                       onClick={() => onLoad(w, cat)}
-                      className="shrink-0 px-2 py-0.5 text-[10px] font-medium rounded transition-colors"
-                      style={{ color: 'var(--accent-text)', background: 'color-mix(in srgb, var(--accent) 15%, transparent)' }}
-                      onMouseEnter={function(e){e.target.style.background='color-mix(in srgb, var(--accent) 25%, transparent)';}}
-                      onMouseLeave={function(e){e.target.style.background='color-mix(in srgb, var(--accent) 15%, transparent)';}}
+                      className="shrink-0 px-2 py-0.5 text-[10px] font-medium text-teal-400 bg-teal-400/10 rounded hover:bg-teal-400/20 transition-colors"
                     >
                       {ICONS.package}
                     </button>
