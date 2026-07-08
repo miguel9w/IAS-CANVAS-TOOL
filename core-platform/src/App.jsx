@@ -21,6 +21,7 @@ import { appBus } from './eventBus';
 import FloatingWindow from './FloatingWindow';
 import Sidebar from './Sidebar';
 import PresentationMode from './PresentationMode';
+import themes from './themes';
 
 const WS_URL = 'ws://localhost:8080';
 
@@ -200,6 +201,16 @@ export default function App() {
   const [decorationsVisible, setDecorationsVisible] = useState(true);
   const [presentationMode, setPresentationMode] = useState(false);
   const [gridSize, setGridSize] = useState(0);
+  const [theme, setTheme] = useState(localStorage.getItem('canvas-theme') || 'dark');
+
+  useEffect(() => {
+    const t = themes[theme];
+    if (!t) return;
+    Object.entries(t.vars).forEach(([key, val]) => {
+      document.documentElement.style.setProperty(key, val);
+    });
+    localStorage.setItem('canvas-theme', theme);
+  }, [theme]);
 
   // Pan (deslocamento) do canvas infinito.
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -381,10 +392,10 @@ export default function App() {
     [pan]
   );
 
-  const statusColor = useMemo(() => {
-    if (wsStatus === 'open') return 'bg-teal-400';
-    if (wsStatus === 'connecting') return 'bg-amber-400 animate-pulse';
-    return 'bg-red-500';
+  const statusStyle = useMemo(() => {
+    if (wsStatus === 'open') return { background: 'rgb(45,212,191)' };
+    if (wsStatus === 'connecting') return { background: 'rgb(251,191,36)', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' };
+    return { background: 'rgb(239,68,68)' };
   }, [wsStatus]);
 
     if (presentationMode && windows.length > 0) {
@@ -392,8 +403,8 @@ export default function App() {
     }
 
     return (<>
-      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} />}
-    <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
+      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} theme={theme} setTheme={setTheme} />}
+    <div className="relative w-screen h-screen overflow-hidden" style={{ background: 'var(--bg-canvas)', color: 'var(--text-primary)' }}>
       {/* Grade de fundo */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -409,8 +420,8 @@ export default function App() {
 
       {/* Indicador de status da conexão com o Plugin OpenCode */}
       {decorationsVisible && (
-        <div className="absolute top-3 right-4 z-50 flex items-center gap-2 font-mono text-[11px] text-slate-400 bg-[#121826]/80 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur">
-          <span className={`w-2 h-2 rounded-full ${statusColor}`} />
+        <div className="absolute top-3 right-4 z-50 flex items-center gap-2 font-mono text-[11px] rounded-full px-3 py-1.5 backdrop-blur" style={{ color: 'var(--text-secondary)', background: 'color-mix(in srgb, var(--bg-surface) 80%, transparent)', borderColor: 'var(--border)' }}>
+          <span className="w-2 h-2 rounded-full" style={statusStyle} />
           {wsStatus === 'open' && 'plugin conectado · porta 8080'}
           {wsStatus === 'connecting' && 'conectando ao plugin...'}
           {wsStatus === 'closed' && 'plugin desconectado · tentando reconectar'}
@@ -420,12 +431,12 @@ export default function App() {
       {/* Área pannable do canvas infinito */}
       <div className="absolute inset-0" onMouseDown={handleCanvasMouseDown} style={{ transform: `translate(${pan.x}px, ${pan.y}px)` }}>
         {windows.length === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center text-slate-600 text-sm font-mono pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center text-sm font-mono pointer-events-none" style={{ color: 'var(--text-muted)' }}>
             Nenhum widget ativo. Aguardando comandos do OpenCode...
           </div>
         )}
         {windows.length > 0 && decorationsVisible && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 text-slate-600 text-xs font-mono bg-[#121826]/60 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur pointer-events-none">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 text-xs font-mono rounded-full px-3 py-1.5 backdrop-blur pointer-events-none" style={{ color: 'var(--text-muted)', background: 'color-mix(in srgb, var(--bg-surface) 60%, transparent)', borderColor: 'var(--border)' }}>
             Arraste com o botão do meio para pan · Feche widgets com o ×
           </div>
         )}
@@ -446,8 +457,11 @@ export default function App() {
         <div className="fixed bottom-4 left-4 z-50 flex gap-2">
           <button
             onClick={() => setDecorationsVisible((v) => !v)}
-            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] backdrop-blur transition-all"
+            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono rounded-lg backdrop-blur transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             title={decorationsVisible ? 'Ocultar decorações' : 'Mostrar decorações'}
+            style={{ color: 'var(--text-secondary)', background: 'color-mix(in srgb, var(--bg-surface) 80%, transparent)', border: '1px solid color-mix(in srgb, var(--border-light) 60%, transparent)' }}
+            onMouseEnter={function(e){e.target.style.color='var(--text-primary)';e.target.style.background='color-mix(in srgb, var(--bg-elevated) 80%, transparent)';}}
+            onMouseLeave={function(e){e.target.style.color='var(--text-secondary)';e.target.style.background='color-mix(in srgb, var(--bg-surface) 80%, transparent)';}}
           >
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               {decorationsVisible
@@ -460,8 +474,11 @@ export default function App() {
           <button
             onClick={() => setPresentationMode(true)}
             disabled={windows.length === 0}
-            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono text-slate-400 bg-[#121826]/80 border border-slate-700/60 rounded-lg hover:text-slate-200 hover:bg-[#1a2030] disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur transition-all"
+            className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono rounded-lg backdrop-blur transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             title="Modo apresentação"
+            style={{ color: 'var(--text-secondary)', background: 'color-mix(in srgb, var(--bg-surface) 80%, transparent)', border: '1px solid color-mix(in srgb, var(--border-light) 60%, transparent)' }}
+            onMouseEnter={function(e){e.target.style.color='var(--text-primary)';e.target.style.background='color-mix(in srgb, var(--bg-elevated) 80%, transparent)';}}
+            onMouseLeave={function(e){e.target.style.color='var(--text-secondary)';e.target.style.background='color-mix(in srgb, var(--bg-surface) 80%, transparent)';}}
           >
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8" /><path d="M12 17v4" />
