@@ -201,7 +201,7 @@ export default function App() {
   const [decorationsVisible, setDecorationsVisible] = useState(true);
   const [presentationMode, setPresentationMode] = useState(false);
   const [gridSize, setGridSize] = useState(0);
-  const [theme, setTheme] = useState(localStorage.getItem('canvas-theme') || 'dark');
+  const [theme, setTheme] = useState(localStorage.getItem('canvas-theme') || 'iridescent-emerald');
 
   useEffect(() => {
     const t = themes[theme];
