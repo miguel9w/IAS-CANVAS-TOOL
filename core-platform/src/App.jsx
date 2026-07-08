@@ -342,6 +342,7 @@ export default function App() {
 
   const closeWindow = useCallback((id) => {
     setWindows((prev) => prev.filter((w) => w.id !== id));
+    setFullscreenId((prev) => (prev === id ? null : prev));
   }, []);
 
   const dragWindow = useCallback((id, x, y) => {
@@ -413,7 +414,7 @@ export default function App() {
       />
 
       {/* Indicador de status da conexão com o Plugin OpenCode */}
-      {decorationsVisible && (
+      {decorationsVisible && !fullscreenId && (
         <div className="absolute top-3 right-4 z-50 flex items-center gap-2 font-mono text-[11px] text-slate-400 bg-[#121826]/80 border border-slate-800 rounded-full px-3 py-1.5 backdrop-blur">
           <span className={`w-2 h-2 rounded-full ${statusColor}`} />
           {wsStatus === 'open' && 'plugin conectado · porta 8080'}
