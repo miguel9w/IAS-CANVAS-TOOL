@@ -70,7 +70,7 @@ var themes = {
       '--border-light': '#334155',
       '--text-primary': '#e2e8f0',
       '--text-secondary': '#94a3b8',
-      '--text-muted': '#64748b',
+      '--text-muted': '#475569',
       '--accent': '#2dd4bf',
       '--accent-text': '#5eead4',
       '--accent-glow': 'rgba(45,212,191,0.15)',
