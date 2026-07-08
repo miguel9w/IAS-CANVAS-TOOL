@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 
-const SECTION = { DEMO: 'demo', CUSTOM: 'custom', LIBRARY: 'library', LOCAL: 'local' };
+const SECTION = { DEMO: 'demo', CUSTOM: 'custom', LIBRARY: 'library', LOCAL: 'local', SETTINGS: 'settings' };
 
 const ICONS = {
   hamburger: (
@@ -63,7 +63,7 @@ const ICONS = {
   ),
 };
 
-export default function Sidebar({ onCreateFromPayload, demoWidgets }) {
+export default function Sidebar({ onCreateFromPayload, demoWidgets, gridSize, setGridSize }) {
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [customCode, setCustomCode] = useState('');
@@ -288,6 +288,33 @@ export default function Sidebar({ onCreateFromPayload, demoWidgets }) {
                   ICONS={ICONS}
                 />
               )}
+            </div>
+          </SidebarItem>
+
+          <SidebarItem
+            icon={
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" />
+              </svg>
+            }
+            label="Configurações"
+            expanded={expanded === SECTION.SETTINGS}
+            onClick={() => toggleSection(SECTION.SETTINGS)}
+            chevron={ICONS.chevron}
+          >
+            <div className="pt-2 space-y-2">
+              <label className="flex items-center justify-between text-xs text-slate-400">
+                <span>Snap to Grid</span>
+                <select value={gridSize} onChange={function(e){setGridSize(Number(e.target.value));}}
+                  className="text-xs border rounded px-2 py-1 bg-[#0B1120] text-slate-300 border-slate-700">
+                  <option value={0}>Desligado</option>
+                  <option value={10}>10px</option>
+                  <option value={20}>20px</option>
+                  <option value={40}>40px</option>
+                  <option value={80}>80px</option>
+                </select>
+              </label>
             </div>
           </SidebarItem>
         </div>
