@@ -199,7 +199,6 @@ export default function App() {
   const [activeId, setActiveId] = useState(null);
   const [decorationsVisible, setDecorationsVisible] = useState(true);
   const [presentationMode, setPresentationMode] = useState(false);
-  const [gridSize, setGridSize] = useState(0);
 
   // Pan (deslocamento) do canvas infinito.
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -340,22 +339,12 @@ export default function App() {
   }, []);
 
   const dragWindow = useCallback((id, x, y) => {
-    setWindows((prev) => prev.map((w) => {
-      if (w.id !== id) return w;
-      return gridSize > 0
-        ? { ...w, x: Math.round(x / gridSize) * gridSize, y: Math.round(y / gridSize) * gridSize }
-        : { ...w, x, y };
-    }));
-  }, [gridSize]);
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, x, y } : w)));
+  }, []);
 
   const resizeWindow = useCallback((id, width, height) => {
-    setWindows((prev) => prev.map((w) => {
-      if (w.id !== id) return w;
-      return gridSize > 0
-        ? { ...w, width: Math.round(width / gridSize) * gridSize, height: Math.round(height / gridSize) * gridSize }
-        : { ...w, width, height };
-    }));
-  }, [gridSize]);
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, width, height } : w)));
+  }, []);
 
   // --- Pan do fundo do canvas (arrastar segurando o botão do meio) --------
   const handleCanvasMouseDown = useCallback(
@@ -392,18 +381,15 @@ export default function App() {
     }
 
     return (<>
-      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} gridSize={gridSize} setGridSize={setGridSize} />}
+      {decorationsVisible && <Sidebar onCreateFromPayload={createWindowFromPayload} demoWidgets={DEMO_WIDGETS} />}
     <div className="relative w-screen h-screen overflow-hidden bg-[#0B1120] text-slate-200">
-      {/* Grade de fundo */}
+      {/* Grade de fundo — puramente decorativa, reforça a metáfora de canvas técnico */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-40"
         style={{
-          opacity: gridSize > 0 ? 0.6 : 0.4,
-          backgroundImage: gridSize > 0
-            ? 'linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px)'
-            : 'radial-gradient(rgba(148,163,184,0.15) 1px, transparent 1px)',
-          backgroundSize: gridSize > 0 ? gridSize + 'px ' + gridSize + 'px' : '24px 24px',
-          transform: `translate(${pan.x % (gridSize > 0 ? gridSize : 24)}px, ${pan.y % (gridSize > 0 ? gridSize : 24)}px)`,
+          backgroundImage: 'radial-gradient(rgba(148,163,184,0.15) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          transform: `translate(${pan.x % 24}px, ${pan.y % 24}px)`,
         }}
       />
 
